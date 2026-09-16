@@ -1,0 +1,4 @@
+baseURL = 'https://dammar.dragonshard.org/'
+locale = 'fr-fr'
+title = 'Dammar Arts'
+theme = 'dammar-arts'
