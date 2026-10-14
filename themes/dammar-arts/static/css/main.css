@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400&display=swap');
+
+:root {
+  --ivory: #F5F4F0;
+  --white: #FFFFFF;
+  --carbon: #111213;
+  --amber: #C28E42;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-sans: 'IBM Plex Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100vh;
+  background-color: var(--ivory);
+  color: var(--carbon);
+  font-family: var(--font-sans);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOP ANCHOR & DRAWER */
+.masthead {
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 50;
+  background-color: var(--ivory);
+}
+
+.drawer-trigger {
+  position: relative;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.wordmark {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.22em;
+  color: var(--carbon);
+  transition: color 0.15s ease;
+}
+
+.drawer-trigger:hover .wordmark,
+.drawer-trigger:focus .wordmark {
+  color: var(--amber);
+}
+
+.folded-sheet {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  background-color: var(--carbon);
+  color: var(--ivory);
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.drawer-trigger:hover .folded-sheet,
+.drawer-trigger:focus .folded-sheet {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sheet-title {
+  color: var(--amber);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.75rem;
+}
+
+.sheet-data a {
+  color: var(--ivory);
+  text-decoration: none;
+}
+
+.sheet-data a:hover {
+  color: var(--amber);
+}
+
+/* PRISM CANVAS: THREE INTERLOCKING TRIANGLES */
+.prism-canvas {
+  position: relative;
+  flex: 1;
+  width: 100vw;
+}
+
+.facet {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  text-decoration: none;
+  color: var(--carbon);
+  transition: background-color 0.2s ease;
+}
+
+/* Triangle 1: Left Wing (Ivory) */
+.facet-script {
+  background-color: var(--ivory);
+  clip-path: polygon(0 0, 50% 0, 0 100%);
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 12vw;
+}
+
+/* Triangle 2: Inverted Center Wedge (White) */
+.facet-pigment {
+  background-color: var(--white);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 8vh;
+}
+
+/* Triangle 3: Right Wing (Ivory) */
+.facet-objects {
+  background-color: var(--ivory);
+  clip-path: polygon(50% 0, 100% 0, 100% 100%);
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 12vw;
+}
+
+/* Hover luminescence */
+.facet-script:hover,
+.facet-objects:hover {
+  background-color: #ECEAE4;
+}
+
+.facet-pigment:hover {
+  background-color: #FAF9F6;
+}
+
+.facet-marker {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  transition: color 0.15s ease;
+}
+
+.facet:hover .facet-marker {
+  color: var(--amber);
+}
+
+/* Mobile: cleanly fall back to stacked horizontal bars */
+@media (max-width: 768px) {
+  html, body {
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .prism-canvas {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 5rem);
+  }
+
+  .facet {
+    position: relative;
+    flex: 1;
+    clip-path: none !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
+
+.facet-pigment {
+  background-color: var(--white);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 8vh;
+  position: absolute;
+  inset: 0;
+  z-index: 2; /* Move it slightly above other elements */
+}
+
+/* 1. The Diagonal 'Survey' Cross (Serendipity lines) */
+.facet-pigment::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background: 
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px)),
+    linear-gradient(to bottom left, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px));
+}
+
+/* 2. The Luminous Top Lozenge Gradient */
+/* The Upper Lozenge (Diamond) */
+.facet-pigment::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  
+  /* Four-point lozenge locking directly onto the hairline vertices */
+  clip-path: polygon(
+    50% 0%,             /* Top apex under DAMMAR */
+    66.667% 33.333%,    /* Right intersection with crosshair */
+    50% 50%,            /* Bottom intersection (center reticle) */
+    33.333% 33.333%     /* Left intersection with crosshair */
+  );
+
+  /* Top-down amber gradient */
+  background: linear-gradient(
+    180deg, 
+    rgba(194, 142, 66, 0.6) 0%, 
+    rgba(194, 142, 66, 0.15) 85%, 
+    transparent 100%
+  );
+}
+
+/* On hover, fade both the survey cross and the lozenge glow in unison */
+.facet-pigment:hover::before,
+.facet-pigment:hover::after {
+  opacity: 1;
+}
