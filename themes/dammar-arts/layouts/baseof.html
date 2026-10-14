@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="{{ site.Language.Locale }}" dir="{{ or site.Language.Direction `ltr` }}">
+<html lang="{{ .Site.Language.Locale }}">
 <head>
-  {{ partial "head.html" . }}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if not .IsHome }}{{ .Title }} — {{ end }}{{ site.Title }}</title>
+  <link rel="stylesheet" href="{{ "css/main.css" | absURL }}">
 </head>
-<body>
-  <header>
-    {{ partial "header.html" . }}
-  </header>
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
+<body class="{{ block "body-class" . }}page-default{{ end }}">
+
+  {{ partial "nav-vectors.html" (dict "mode" "top" "page" .) }}
+
+  {{ block "main" . }}
+  {{ end }}
+
+  {{ if not .IsHome }}
+    {{ partial "nav-vectors.html" (dict "mode" "bottom" "page" .) }}
+  {{ end }}
+
 </body>
 </html>

@@ -1,36 +1,28 @@
-<!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode }}">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Section | upper }} — {{ site.Title }}</title>
-  <link rel="stylesheet" href="{{ "css/main.css" | absURL }}">
-</head>
-<body class="page-ledger section-{{ .Section }}">
+{{ define "body-class" }}page-ledger section-{{ .Section }} {{ end }}
 
-  <!-- TOP PEDIMENT: Carbon Apex + Amber Flanking Corners -->
-  {{ partial "nav-vectors.html" (dict "mode" "top" "page" .) }}
+{{ define "main" }}
+<main class="ledger-stage">
+  <header class="ledger-header">
+    <span class="ledger-facet-tag">LEDGER // {{ .Section | upper }}</span>
+    <h1 class="ledger-title">{{ .Title | default (.Section | upper) }}</h1>
+  </header>
 
-  <main class="ledger-stage">
-    <header class="ledger-header">
-      <span class="ledger-facet-tag">
-        {{ if eq .Section "script" }}01 // SCRIPT{{ else if eq .Section "pigment" }}02 // PIGMENT{{ else }}03 // OBJECTS{{ end }}
-      </span>
-      <h1 class="ledger-title">{{ .Title | default (.Section | upper) }}</h1>
-    </header>
-
-    <ul class="ledger-records">
-      {{ range .Pages }}
+  <ul class="ledger-records" role="list">
+    {{ range .Pages.ByDate.Reverse }}
       <li class="ledger-entry">
         <a href="{{ .RelPermalink }}" class="ledger-link">
-          <span class="entry-date">{{ .Date.Format "2006.01.02" }}</span>
+          <time class="entry-date" datetime="{{ .Date.Format "2006-01-02" }}">
+            {{ .Date.Format "2006.01.02" }}
+          </time>
           <span class="entry-title">{{ .Title }}</span>
-          <span class="entry-indicator">▶</span>
+          <span class="entry-indicator" aria-hidden="true">→</span>
         </a>
       </li>
-      {{ end }}
-    </ul>
-  </main>
-
-</body>
-</html>
+    {{ else }}
+      <li class="ledger-entry ledger-empty">
+        <span class="entry-title">NO SPECIMENS CATALOGED</span>
+      </li>
+    {{ end }}
+  </ul>
+</main>
+{{ end }}
