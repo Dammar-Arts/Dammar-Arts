@@ -1,0 +1,47 @@
+{{ $mode := .mode | default "top" }}
+{{ $page := .page }}
+
+{{ if eq $mode "top" }}
+  <nav class="vault-pediment" aria-label="Vault Navigation">
+    {{ if not $page.IsHome }}
+      {{/* Define cyclical facet neighbor maps */}}
+      {{ $prevMap := dict "script" "objects" "pigment" "script" "objects" "pigment" }}
+      {{ $nextMap := dict "script" "pigment" "pigment" "objects" "objects" "script" }}
+
+      {{ $prevFacet := index $prevMap $page.Section | default "objects" }}
+      {{ $nextFacet := index $nextMap $page.Section | default "pigment" }}
+
+      <!-- Left Corner: 2x Amber Wedge -->
+      <a href="{{ $prevFacet | relURL }}" class="corner-vector corner-left" title="Orbit to {{ $prevFacet | upper }}">
+        <span class="corner-label">{{ $prevFacet | upper }}</span>
+      </a>
+
+      <!-- Center Apex: Embeds persistent header + Upward Carbon Triangle -->
+      <div class="apex-core">
+        <a href="{{ site.Home.RelPermalink }}" class="apex-triangle-link" title="Ascend to Prism Root">
+          <div class="vector-triangle triangle-up"></div>
+        </a>
+        {{ partial "header.html" $page }}
+      </div>
+
+      <!-- Right Corner: 2x Amber Wedge -->
+      <a href="{{ $nextFacet | relURL }}" class="corner-vector corner-right" title="Orbit to {{ $nextFacet | upper }}">
+        <span class="corner-label">{{ $nextFacet | upper }}</span>
+      </a>
+    {{ else }}
+      <!-- Center Apex on Home Canvas (Corners omitted) -->
+      <div class="apex-core">
+        {{ partial "header.html" $page }}
+      </div>
+    {{ end }}
+  </nav>
+
+{{ else if eq $mode "bottom" }}
+  <!-- Bottom Drain: Carbon Downward Triangle -->
+  <footer class="vault-drain" aria-label="Ledger Transition">
+    <a href="{{ $page.CurrentSection.RelPermalink }}" class="drain-link" title="Descend to {{ $page.Section | upper }} Index">
+      <span class="drain-label">LEDGER / {{ $page.Section | upper }}</span>
+      <div class="vector-triangle triangle-down"></div>
+    </a>
+  </footer>
+{{ end }}

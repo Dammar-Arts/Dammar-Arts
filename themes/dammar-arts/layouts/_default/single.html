@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }} — {{ site.Title }}</title>
+  <link rel="stylesheet" href="{{ "css/main.css" | absURL }}">
+</head>
+<body class="page-specimen section-{{ .Section }}">
+
+  {{ partial "nav-vectors.html" (dict "mode" "top" "page" .) }}
+
+  <main class="specimen-stage">
+    <header class="specimen-meta">
+      <span class="specimen-accession">{{ .Section | upper }} / {{ .Date.Format "2006.01" }}</span>
+      <h1 class="specimen-title">{{ .Title }}</h1>
+    </header>
+
+    <article class="specimen-plate">
+      {{ .Content }}
+    </article>
+  </main>
+
+  {{ partial "nav-vectors.html" (dict "mode" "bottom" "page" .) }}
+
+</body>
+</html>

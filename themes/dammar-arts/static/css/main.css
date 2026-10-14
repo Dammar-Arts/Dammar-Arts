@@ -16,30 +16,55 @@
 }
 
 html, body {
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--ivory);
   color: var(--carbon);
   font-family: var(--font-sans);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* TOP ANCHOR & DRAWER */
-.masthead {
-  height: 5rem;
+body.page-home {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.vault-pediment {
+  position: relative;
+  width: 100vw;
+  height: 5.5rem;
+  background-color: var(--ivory);
+  border-bottom: 1px solid rgba(17, 18, 19, 0.08);
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  overflow: visible;
   z-index: 50;
-  background-color: var(--ivory);
 }
 
-.drawer-trigger {
+.page-home .vault-pediment {
+  border-bottom: none;
+}
+
+.apex-core {
   position: relative;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 60;
+}
+
+.apex-triangle-link {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.35rem;
+  outline: none;
+}
+
+.wordmark-link {
+  text-decoration: none;
+  color: inherit;
   outline: none;
 }
 
@@ -52,14 +77,35 @@ html, body {
   transition: color 0.15s ease;
 }
 
+.drawer-trigger {
+  cursor: pointer;
+  outline: none;
+}
+
 .drawer-trigger:hover .wordmark,
 .drawer-trigger:focus .wordmark {
   color: var(--amber);
 }
 
+.vector-triangle {
+  width: 0;
+  height: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.triangle-up {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 14px solid var(--carbon);
+}
+
+.apex-triangle-link:hover .triangle-up {
+  transform: translateY(-3px);
+}
+
 .folded-sheet {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.5rem);
   left: 50%;
   transform: translateX(-50%);
   width: 280px;
@@ -73,6 +119,7 @@ html, body {
   pointer-events: none;
   transition: opacity 0.2s ease;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  z-index: 100;
 }
 
 .drawer-trigger:hover .folded-sheet,
@@ -97,7 +144,46 @@ html, body {
   color: var(--amber);
 }
 
-/* PRISM CANVAS: THREE INTERLOCKING TRIANGLES */
+.corner-vector {
+  position: absolute;
+  top: 0;
+  width: 140px;
+  height: 100%;
+  background-color: var(--amber);
+  text-decoration: none;
+  display: flex;
+  z-index: 10;
+  transition: background-color 0.2s ease;
+}
+
+.corner-left {
+  left: 0;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  padding: 0.75rem 0 0 1.25rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.corner-right {
+  right: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  padding: 0.75rem 1.25rem 0 0;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.corner-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--white);
+}
+
+.corner-vector:hover {
+  background-color: #a87632;
+}
+
 .prism-canvas {
   position: relative;
   flex: 1;
@@ -113,43 +199,6 @@ html, body {
   transition: background-color 0.2s ease;
 }
 
-/* Triangle 1: Left Wing (Ivory) */
-.facet-script {
-  background-color: var(--ivory);
-  clip-path: polygon(0 0, 50% 0, 0 100%);
-  justify-content: flex-start;
-  align-items: center;
-  padding-left: 12vw;
-}
-
-/* Triangle 2: Inverted Center Wedge (White) */
-.facet-pigment {
-  background-color: var(--white);
-  clip-path: polygon(50% 0, 100% 100%, 0 100%);
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 8vh;
-}
-
-/* Triangle 3: Right Wing (Ivory) */
-.facet-objects {
-  background-color: var(--ivory);
-  clip-path: polygon(50% 0, 100% 0, 100% 100%);
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 12vw;
-}
-
-/* Hover luminescence */
-.facet-script:hover,
-.facet-objects:hover {
-  background-color: #ECEAE4;
-}
-
-.facet-pigment:hover {
-  background-color: #FAF9F6;
-}
-
 .facet-marker {
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -161,27 +210,28 @@ html, body {
   color: var(--amber);
 }
 
-/* Mobile: cleanly fall back to stacked horizontal bars */
-@media (max-width: 768px) {
-  html, body {
-    height: auto;
-    overflow-y: auto;
-  }
+.facet-script {
+  background-color: var(--ivory);
+  clip-path: polygon(0 0, 50% 0, 0 100%);
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 12vw;
+}
 
-  .prism-canvas {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 5rem);
-  }
+.facet-script:hover {
+  background-color: #ECEAE4;
+}
 
-  .facet {
-    position: relative;
-    flex: 1;
-    clip-path: none !important;
-    padding: 0 !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
+.facet-objects {
+  background-color: var(--ivory);
+  clip-path: polygon(50% 0, 100% 0, 100% 100%);
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 12vw;
+}
+
+.facet-objects:hover {
+  background-color: #ECEAE4;
 }
 
 .facet-pigment {
@@ -190,12 +240,13 @@ html, body {
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 8vh;
-  position: absolute;
-  inset: 0;
-  z-index: 2; /* Move it slightly above other elements */
+  z-index: 2;
 }
 
-/* 1. The Diagonal 'Survey' Cross (Serendipity lines) */
+.facet-pigment:hover {
+  background-color: #FAF9F6;
+}
+
 .facet-pigment::after {
   content: "";
   position: absolute;
@@ -208,8 +259,6 @@ html, body {
     linear-gradient(to bottom left, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px));
 }
 
-/* 2. The Luminous Top Lozenge Gradient */
-/* The Upper Lozenge (Diamond) */
 .facet-pigment::before {
   content: "";
   position: absolute;
@@ -217,16 +266,12 @@ html, body {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.25s ease;
-  
-  /* Four-point lozenge locking directly onto the hairline vertices */
   clip-path: polygon(
-    50% 0%,             /* Top apex under DAMMAR */
-    66.667% 33.333%,    /* Right intersection with crosshair */
-    50% 50%,            /* Bottom intersection (center reticle) */
-    33.333% 33.333%     /* Left intersection with crosshair */
+    50% 0%,
+    66.667% 33.333%,
+    50% 50%,
+    33.333% 33.333%
   );
-
-  /* Top-down amber gradient */
   background: linear-gradient(
     180deg, 
     rgba(194, 142, 66, 0.6) 0%, 
@@ -235,8 +280,182 @@ html, body {
   );
 }
 
-/* On hover, fade both the survey cross and the lozenge glow in unison */
 .facet-pigment:hover::before,
 .facet-pigment:hover::after {
   opacity: 1;
+}
+
+.vault-drain {
+  width: 100%;
+  padding: 4rem 0 6rem;
+  display: flex;
+  justify-content: center;
+  background-color: var(--ivory);
+  border-top: 1px solid rgba(17, 18, 19, 0.08);
+}
+
+.drain-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  outline: none;
+}
+
+.drain-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--carbon);
+  margin-bottom: 0.6rem;
+  transition: color 0.15s ease;
+}
+
+.triangle-down {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 14px solid var(--carbon);
+}
+
+.drain-link:hover .triangle-down {
+  transform: translateY(3px);
+}
+
+.drain-link:hover .drain-label {
+  color: var(--amber);
+}
+
+.specimen-stage,
+.ledger-stage {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+  width: 100%;
+  flex: 1;
+}
+
+.specimen-meta,
+.ledger-header {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(17, 18, 19, 0.08);
+  padding-bottom: 1.5rem;
+}
+
+.specimen-accession,
+.ledger-facet-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--amber);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.specimen-title,
+.ledger-title {
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--carbon);
+  line-height: 1.2;
+}
+
+.specimen-plate {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--carbon);
+}
+
+.specimen-plate img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 2rem auto;
+  background-color: var(--white);
+  padding: 1rem;
+  border: 1px solid rgba(17, 18, 19, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.ledger-records {
+  list-style: none;
+  border-top: 1px solid rgba(17, 18, 19, 0.08);
+}
+
+.ledger-entry {
+  border-bottom: 1px solid rgba(17, 18, 19, 0.08);
+}
+
+.ledger-link {
+  display: grid;
+  grid-template-columns: 9rem 1fr auto;
+  align-items: center;
+  padding: 1.25rem 0;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--carbon);
+  transition: background-color 0.15s ease, padding-left 0.15s ease;
+}
+
+.ledger-link:hover {
+  background-color: var(--white);
+  padding-left: 1rem;
+}
+
+.ledger-link:hover .entry-indicator {
+  color: var(--amber);
+  transform: translateX(4px);
+}
+
+.entry-date {
+  color: rgba(17, 18, 19, 0.45);
+  font-size: 0.75rem;
+}
+
+.entry-indicator {
+  color: rgba(17, 18, 19, 0.2);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+@media (max-width: 768px) {
+  body.page-home {
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .vault-pediment {
+    height: 4.5rem;
+  }
+
+  .corner-vector {
+    width: 80px;
+  }
+
+  .corner-label {
+    font-size: 0.55rem;
+  }
+
+  .prism-canvas {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 4.5rem);
+  }
+
+  .facet {
+    position: relative;
+    flex: 1;
+    clip-path: none !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .ledger-link {
+    grid-template-columns: 7rem 1fr auto;
+    font-size: 0.75rem;
+  }
 }

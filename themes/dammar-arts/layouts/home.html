@@ -1,9 +1,28 @@
-{{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
-    </section>
-  {{ end }}
-{{ end }}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.Title }}</title>
+  <link rel="stylesheet" href="{{ "css/main.css" | absURL }}">
+</head>
+<body class="page-home">
+
+  {{ partial "nav-vectors.html" (dict "mode" "top" "page" .) }}
+
+  <main class="prism-canvas">
+    <a href="{{ "script/" | relURL }}" class="facet facet-script">
+      <span class="facet-marker">01 / SCRIPT</span>
+    </a>
+
+    <a href="{{ "pigment/" | relURL }}" class="facet facet-pigment">
+      <span class="facet-marker">02 / PIGMENT</span>
+    </a>
+
+    <a href="{{ "objects/" | relURL }}" class="facet facet-objects">
+      <span class="facet-marker">03 / OBJECTS</span>
+    </a>
+  </main>
+
+</body>
+</html>

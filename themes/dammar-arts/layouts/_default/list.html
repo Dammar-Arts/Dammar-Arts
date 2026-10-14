@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Section | upper }} — {{ site.Title }}</title>
+  <link rel="stylesheet" href="{{ "css/main.css" | absURL }}">
+</head>
+<body class="page-ledger section-{{ .Section }}">
+
+  <!-- TOP PEDIMENT: Carbon Apex + Amber Flanking Corners -->
+  {{ partial "nav-vectors.html" (dict "mode" "top" "page" .) }}
+
+  <main class="ledger-stage">
+    <header class="ledger-header">
+      <span class="ledger-facet-tag">
+        {{ if eq .Section "script" }}01 // SCRIPT{{ else if eq .Section "pigment" }}02 // PIGMENT{{ else }}03 // OBJECTS{{ end }}
+      </span>
+      <h1 class="ledger-title">{{ .Title | default (.Section | upper) }}</h1>
+    </header>
+
+    <ul class="ledger-records">
+      {{ range .Pages }}
+      <li class="ledger-entry">
+        <a href="{{ .RelPermalink }}" class="ledger-link">
+          <span class="entry-date">{{ .Date.Format "2006.01.02" }}</span>
+          <span class="entry-title">{{ .Title }}</span>
+          <span class="entry-indicator">▶</span>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </main>
+
+</body>
+</html>

@@ -1,2 +1,15 @@
-<h1>{{ site.Title }}</h1>
-{{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+<header class="masthead">
+  <div class="drawer-trigger" tabindex="0">
+    <a href="{{ site.Home.RelPermalink }}" class="wordmark-link">
+      <span class="wordmark">D A M M A R</span>
+    </a>
+    <div class="folded-sheet" role="region" aria-label="Archive Data">
+      <div class="sheet-title">{{ site.Title }}</div>
+      <div class="sheet-data">
+        <div>LOC: {{ site.Params.location }}</div>
+        <div>GEO: {{ site.Params.coordinates }}</div>
+        <div>NET: <a href="mailto:{{ site.Params.contact_email }}">{{ site.Params.contact_email }}</a></div>
+      </div>
+    </div>
+  </div>
+</header>
