@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400&display=swap");
 
 :root {
   --ivory: #F5F4F0;
   --white: #FFFFFF;
-  --carbon: #18191B;             /* True mineral carbon, not dead #000 */
-  --carbon-soft: #232529;        /* Graphite surface tone */
-  --carbon-border: rgba(24, 25, 27, 0.06); /* Hairline slate rule */
+  --carbon: #18191B;
+  --carbon-soft: #232529;
+  --carbon-border: rgba(24, 25, 27, 0.06);
   --amber: #C28E42;
   --amber-soft: rgba(194, 142, 66, 0.04);
-  --font-mono: 'IBM Plex Mono', monospace;
-  --font-sans: 'IBM Plex Sans', sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-sans: "IBM Plex Sans", sans-serif;
 }
 
 * {
@@ -18,7 +18,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   min-height: 100vh;
   background-color: var(--ivory);
   color: var(--carbon);
@@ -33,12 +34,13 @@ body.page-home {
 }
 
 /* ==========================================================================
-   1. PEDIMENT & APEX CHEVRON (Points DOWN into the page)
+   Vault Pediment & Top Apex Header
    ========================================================================== */
+
 .vault-pediment {
   position: relative;
-  width: 100vw;
-  height: 6rem;
+  width: 100%;
+  height: 6.5rem;
   background-color: var(--ivory);
   border-bottom: 1px solid var(--carbon-border);
   display: flex;
@@ -46,27 +48,36 @@ body.page-home {
   align-items: center;
   overflow: visible;
   z-index: 50;
+  padding: 0 2rem;
 }
 
 .page-home .vault-pediment {
   border-bottom: none;
 }
 
+/* Pediment hierarchy: Wordmark on top, downward apex chevron underneath */
 .apex-core {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.5rem;
   z-index: 60;
 }
 
+.masthead {
+  order: 1;
+}
+
 .apex-triangle-link {
+  order: 2;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin: 0;
   outline: none;
+  padding: 0.25rem;
 }
 
 .wordmark-link {
@@ -78,8 +89,8 @@ body.page-home {
 .wordmark {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 1.15rem;
-  letter-spacing: 0.24em;
+  font-size: 1.25rem;
+  letter-spacing: 0.35em;
   color: var(--carbon);
   transition: color 0.15s ease;
 }
@@ -94,27 +105,36 @@ body.page-home {
   color: var(--amber);
 }
 
-/* Precision Chevron: Replaces the clunky border triangles */
-.vector-triangle {
+/* Hairline Chevrons: Open vectors, never solid blocks or heavy border hacks */
+.vector-triangle,
+.chevron {
   position: relative;
   width: 14px;
   height: 14px;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s ease;
+  background: transparent;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s ease;
 }
 
-/* Apex Mark: Points DOWN (V) */
-.triangle-up,
-.vector-triangle.triangle-down-chevron {
-  border-right: 1.75px solid var(--carbon-soft);
-  border-bottom: 1.75px solid var(--carbon-soft);
+/* Top Apex Chevron: points DOWN into the vault (v) */
+.apex-triangle-link .vector-triangle,
+.apex-core .vector-triangle,
+.chevron-down,
+.triangle-down-chevron,
+.triangle-up {
+  border: none;
+  border-right: 1.5px solid var(--carbon);
+  border-bottom: 1.5px solid var(--carbon);
   transform: rotate(45deg);
 }
 
-.apex-triangle-link:hover .vector-triangle {
+.apex-triangle-link:hover .vector-triangle,
+.apex-triangle-link:hover .triangle-up,
+.apex-triangle-link:hover .chevron-down {
   border-color: var(--amber);
   transform: rotate(45deg) translate(2px, 2px);
 }
 
+/* Drawer fold metadata panel */
 .folded-sheet {
   position: absolute;
   top: calc(100% + 0.75rem);
@@ -158,53 +178,104 @@ body.page-home {
 }
 
 /* ==========================================================================
-   2. AMBER WING CHEVRONS (Anchored BENEATH the pediment header)
+   Amber Corner Vectors: Hairline & Transparency Gradient
+   - Default: Top hairline with directional amber transparency gradient.
+   - Hover: Resolves into a full hollowed-out hairline triangle.
    ========================================================================== */
+
 .corner-vector {
   position: absolute;
-  top: 100%; /* Begins directly beneath the header baseline */
-  width: 120px;
-  height: 3.5rem;
-  background-color: transparent;
+  top: 0;
+  width: 140px;
+  height: 100%;
   text-decoration: none;
   display: flex;
-  z-index: 10;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  background-color: transparent;
+  z-index: 55;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
 
+/* Base corner label typography */
+.corner-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--amber);
+  opacity: 0.85;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Left Corner (e.g. SCRIPT / OBJECTS)
+   -------------------------------------------------------------------------- */
 .corner-left {
   left: 0;
-  border-top: 2px solid var(--amber);
-  border-left: 2px solid var(--amber);
+  border-top: 1.5px solid var(--amber);
   clip-path: polygon(0 0, 100% 0, 0 100%);
-  background: linear-gradient(135deg, rgba(194, 142, 66, 0.2) 0%, transparent 60%);
-  padding: 0.5rem 0 0 1rem;
+  background: linear-gradient(135deg, rgba(194, 142, 66, 0.22) 0%, transparent 65%);
+  padding: 0.85rem 0 0 1.25rem;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
+/* Diagonal hairline hypotenuse on hover (hollowed-out triangle) */
+.corner-left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(to bottom right, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px));
+  transition: opacity 0.25s ease;
+}
+
+.corner-left:hover {
+  background: linear-gradient(135deg, rgba(194, 142, 66, 0.05) 0%, transparent 60%);
+  border-left: 1.5px solid var(--amber);
+}
+
+.corner-left:hover::after {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Right Corner (e.g. OBJECTS / PIGMENT)
+   -------------------------------------------------------------------------- */
 .corner-right {
   right: 0;
-  border-top: 2px solid var(--amber);
-  border-right: 2px solid var(--amber);
+  border-top: 1.5px solid var(--amber);
   clip-path: polygon(0 0, 100% 0, 100% 100%);
-  background: linear-gradient(-135deg, rgba(194, 142, 66, 0.2) 0%, transparent 60%);
-  padding: 0.5rem 1rem 0 0;
+  background: linear-gradient(-135deg, rgba(194, 142, 66, 0.22) 0%, transparent 65%);
+  padding: 0.85rem 1.25rem 0 0;
   justify-content: flex-end;
   align-items: flex-start;
 }
 
-.corner-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  color: var(--carbon);
-  opacity: 0.7;
+/* Diagonal hairline hypotenuse on hover (hollowed-out triangle) */
+.corner-right::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(to bottom left, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px));
+  transition: opacity 0.25s ease;
 }
 
+.corner-right:hover {
+  background: linear-gradient(-135deg, rgba(194, 142, 66, 0.05) 0%, transparent 60%);
+  border-right: 1.5px solid var(--amber);
+}
+
+.corner-right:hover::after {
+  opacity: 1;
+}
+
+/* Universal hover state feedback */
 .corner-vector:hover {
-  transform: translateY(2px);
+  transform: translateY(1px);
 }
 
 .corner-vector:hover .corner-label {
@@ -213,8 +284,9 @@ body.page-home {
 }
 
 /* ==========================================================================
-   3. PRISM HOME CANVAS
+   Home Prism Canvas
    ========================================================================== */
+
 .prism-canvas {
   position: relative;
   flex: 1;
@@ -249,7 +321,8 @@ body.page-home {
   padding-left: 12vw;
 }
 
-.facet-script:hover {
+.facet-script:hover,
+.facet-objects:hover {
   background-color: #ECEAE4;
 }
 
@@ -259,10 +332,6 @@ body.page-home {
   justify-content: flex-end;
   align-items: center;
   padding-right: 12vw;
-}
-
-.facet-objects:hover {
-  background-color: #ECEAE4;
 }
 
 .facet-pigment {
@@ -285,7 +354,7 @@ body.page-home {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.25s ease;
-  background: 
+  background:
     linear-gradient(to bottom right, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px)),
     linear-gradient(to bottom left, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px));
 }
@@ -297,16 +366,11 @@ body.page-home {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.25s ease;
-  clip-path: polygon(
-    50% 0%,
-    66.667% 33.333%,
-    50% 50%,
-    33.333% 33.333%
-  );
+  clip-path: polygon(50% 0%, 66.667% 33.333%, 50% 50%, 33.333% 33.333%);
   background: linear-gradient(
-    180deg, 
-    rgba(194, 142, 66, 0.6) 0%, 
-    rgba(194, 142, 66, 0.15) 85%, 
+    180deg,
+    rgba(194, 142, 66, 0.6) 0%,
+    rgba(194, 142, 66, 0.15) 85%,
     transparent 100%
   );
 }
@@ -317,13 +381,16 @@ body.page-home {
 }
 
 /* ==========================================================================
-   4. VAULT DRAIN & CHEVRON (Points UP into the page)
+   Vault Drain & Bottom Upward Chevron
    ========================================================================== */
+
 .vault-drain {
   width: 100%;
-  padding: 5rem 0 7rem;
+  padding: 3.5rem 0 4.5rem;
+  margin-top: auto;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: var(--ivory);
   border-top: 1px solid var(--carbon-border);
 }
@@ -332,29 +399,35 @@ body.page-home {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.75rem;
   text-decoration: none;
   outline: none;
 }
 
 .drain-label {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   color: var(--carbon);
-  margin-bottom: 0.75rem;
   transition: color 0.15s ease;
 }
 
-/* Drain Mark: Points UP (^) */
-.triangle-down,
-.vector-triangle.triangle-up-chevron {
-  border-left: 1.75px solid var(--carbon-soft);
-  border-top: 1.75px solid var(--carbon-soft);
+/* Bottom Drain Chevron: points UP into the vault (^) */
+.vault-drain .vector-triangle,
+.drain-link .vector-triangle,
+.chevron-up,
+.triangle-up-chevron,
+.triangle-down {
+  border: none;
+  border-left: 1.5px solid var(--carbon);
+  border-top: 1.5px solid var(--carbon);
   transform: rotate(45deg);
 }
 
-.drain-link:hover .vector-triangle {
+.drain-link:hover .vector-triangle,
+.drain-link:hover .triangle-down,
+.drain-link:hover .chevron-up {
   border-color: var(--amber);
   transform: rotate(45deg) translate(-2px, -2px);
 }
@@ -364,20 +437,21 @@ body.page-home {
 }
 
 /* ==========================================================================
-   5. LEDGER (Deep Vault Air & Architectural Spacing)
+   The Ledger & The Specimen (Content View Architectures)
    ========================================================================== */
+
 .specimen-stage,
 .ledger-stage {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 5rem 3rem 8rem;
+  max-width: 900px;
   width: 100%;
-  flex: 1;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+  flex: 1 0 auto;
 }
 
-.specimen-meta,
-.ledger-header {
-  margin-bottom: 4rem;
+.ledger-header,
+.specimen-meta {
+  margin-bottom: 3.5rem;
   border-bottom: 1px solid var(--carbon-border);
   padding-bottom: 2rem;
 }
@@ -386,7 +460,7 @@ body.page-home {
 .ledger-facet-tag {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   color: var(--amber);
   display: block;
   margin-bottom: 0.75rem;
@@ -395,36 +469,18 @@ body.page-home {
 .specimen-title,
 .ledger-title {
   font-family: var(--font-mono);
-  font-size: 2.4rem;
+  font-size: 2.3rem;
   font-weight: 400;
   letter-spacing: 0.05em;
   color: var(--carbon);
   line-height: 1.25;
 }
 
-.specimen-plate {
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
-  line-height: 1.95;
-  color: var(--carbon);
-}
-
-.specimen-plate img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 3rem auto;
-  background-color: var(--white);
-  padding: 1.25rem;
-  border: 1px solid var(--carbon-border);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-}
-
-/* Vault-spaced Records */
+/* Aerated Ledger Records */
 .ledger-records {
   list-style: none;
   border-top: 1px solid var(--carbon-border);
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .ledger-entry {
@@ -434,11 +490,10 @@ body.page-home {
 
 .ledger-link {
   display: grid;
-  /* Date | Specimen Title | Indicator */
-  grid-template-columns: 11rem 1fr 3rem;
+  grid-template-columns: 9.5rem 1fr auto;
   align-items: baseline;
   gap: 2rem;
-  padding: 2.25rem 1.5rem; /* The "air": spacious, dignified row height */
+  padding: 2.25rem 1.25rem;
   text-decoration: none;
   font-family: var(--font-mono);
   font-size: 0.95rem;
@@ -474,32 +529,62 @@ body.page-home {
   transform: translateX(6px);
 }
 
+.ledger-empty {
+  padding: 6rem 1.5rem; /* Expands the empty notice so it anchors the stage */
+  text-align: center;
+  color: rgba(24, 25, 27, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.28em;
+  border-bottom: 1px solid var(--carbon-border);
+}
+
+/* Specimen Plate Body */
+.specimen-plate {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  line-height: 1.95;
+  color: var(--carbon);
+}
+
+.specimen-plate p {
+  margin-bottom: 1.8rem;
+}
+
+.specimen-plate img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 3rem auto;
+  background-color: var(--white);
+  padding: 1.25rem;
+  border: 1px solid var(--carbon-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
 /* ==========================================================================
-   MOBILE BREAKPOINTS
+   Responsive Adaptations
    ========================================================================== */
+
 @media (max-width: 768px) {
   body.page-home {
     height: auto;
     overflow-y: auto;
   }
 
-  .vault-pediment {
-    height: 5rem;
-  }
-
   .corner-vector {
-    width: 80px;
-    height: 2.5rem;
+    display: none;
   }
 
-  .corner-label {
-    font-size: 0.55rem;
+  .vault-pediment {
+    height: 5.5rem;
+    padding: 0 1rem;
   }
 
   .prism-canvas {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 5rem);
+    height: calc(100vh - 5.5rem);
   }
 
   .facet {
@@ -513,13 +598,16 @@ body.page-home {
 
   .specimen-stage,
   .ledger-stage {
-    padding: 3rem 1.5rem 5rem;
+    padding: 2rem 1.25rem 4rem;
   }
 
   .ledger-link {
-    grid-template-columns: 8rem 1fr auto;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
     padding: 1.75rem 0.75rem;
-    font-size: 0.85rem;
-    gap: 1rem;
+  }
+
+  .entry-date {
+    grid-column: 1 / -1;
   }
 }
