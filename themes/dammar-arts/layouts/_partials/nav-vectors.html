@@ -4,32 +4,43 @@
 {{ if eq $mode "top" }}
   <nav class="vault-pediment" aria-label="Vault Navigation">
     {{ if not $page.IsHome }}
-      {{/* Define cyclical facet neighbor maps */}}
       {{ $prevMap := dict "script" "objects" "pigment" "script" "objects" "pigment" }}
       {{ $nextMap := dict "script" "pigment" "pigment" "objects" "objects" "script" }}
 
       {{ $prevFacet := index $prevMap $page.Section | default "objects" }}
       {{ $nextFacet := index $nextMap $page.Section | default "pigment" }}
 
-      <!-- Left Corner: 2x Amber Wedge -->
+      <!-- Left Corner: Positioned under the pediment divider line -->
       <a href="{{ $prevFacet | relURL }}" class="corner-vector corner-left" title="Orbit to {{ $prevFacet | upper }}">
         <span class="corner-label">{{ $prevFacet | upper }}</span>
       </a>
 
-      <!-- Center Apex: Embeds persistent header + Upward Carbon Triangle -->
+      <!-- Center Wordmark Header -->
       <div class="apex-core">
-                {{ partial "header.html" $page }}
-        <a href="{{ site.Home.RelPermalink }}" class="apex-triangle-link" title="Ascend to Prism Root">
-          <div class="vector-triangle triangle-up"></div>
-        </a>
+        {{ partial "header.html" $page }}
       </div>
 
-      <!-- Right Corner: 2x Amber Wedge -->
+      <!-- Right Corner: Positioned under the pediment divider line -->
       <a href="{{ $nextFacet | relURL }}" class="corner-vector corner-right" title="Orbit to {{ $nextFacet | upper }}">
         <span class="corner-label">{{ $nextFacet | upper }}</span>
       </a>
+
+      <!-- Top Apex Chevron: Starts at the bottom divider line, pointing DOWN, with inside-only gradient -->
+      <a href="{{ site.Home.RelPermalink }}" class="apex-divider-anchor" title="Ascend to Prism Root" aria-label="Ascend to Prism Root">
+        <svg class="vault-chevron-svg" viewBox="0 0 104 52" width="104" height="52" fill="none">
+          <defs>
+            <linearGradient id="chevron-inside-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#18191B" stop-opacity="0.32" />
+              <stop offset="40%" stop-color="#18191B" stop-opacity="0.14" />
+              <stop offset="100%" stop-color="#18191B" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <polygon points="6,4 52,48 98,4" fill="url(#chevron-inside-grad)" class="chevron-interior" />
+          <path d="M 6 4 L 52 48 L 98 4" class="chevron-carbon-stroke" />
+        </svg>
+      </a>
+
     {{ else }}
-      <!-- Center Apex on Home Canvas (Corners omitted) -->
       <div class="apex-core">
         {{ partial "header.html" $page }}
       </div>
@@ -37,11 +48,25 @@
   </nav>
 
 {{ else if eq $mode "bottom" }}
-  <!-- Bottom Drain: Carbon Downward Triangle -->
-  <footer class="vault-drain" aria-label="Ledger Transition">
-    <a href="{{ $page.CurrentSection.RelPermalink }}" class="drain-link" title="Descend to {{ $page.Section | upper }} Index">
-      <span class="drain-label">LEDGER / {{ $page.Section | upper }}</span>
-      <div class="vector-triangle triangle-down"></div>
-    </a>
-  </footer>
+  {{/* Suppressed on List/Ledger pages; displayed on single specimen plates */}}
+  {{ if not $page.IsSection }}
+    <footer class="vault-drain" aria-label="Ledger Transition">
+      <a href="{{ $page.CurrentSection.RelPermalink }}" class="drain-link" title="Descend to {{ $page.Section | upper }} Index">
+        <span class="drain-label">LEDGER / {{ $page.Section | upper }}</span>
+        <div class="drain-divider-anchor">
+          <svg class="vault-chevron-svg" viewBox="0 0 104 52" width="104" height="52" fill="none">
+            <defs>
+              <linearGradient id="drain-inside-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#18191B" stop-opacity="0.32" />
+                <stop offset="40%" stop-color="#18191B" stop-opacity="0.14" />
+                <stop offset="100%" stop-color="#18191B" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <polygon points="6,48 52,4 98,48" fill="url(#drain-inside-grad)" class="chevron-interior" />
+            <path d="M 6 48 L 52 4 L 98 48" class="chevron-carbon-stroke" />
+          </svg>
+        </div>
+      </a>
+    </footer>
+  {{ end }}
 {{ end }}

@@ -33,10 +33,6 @@ body.page-home {
   overflow: hidden;
 }
 
-/* ==========================================================================
-   Vault Pediment & Top Apex Header
-   ========================================================================== */
-
 .vault-pediment {
   position: relative;
   width: 100%;
@@ -55,7 +51,6 @@ body.page-home {
   border-bottom: none;
 }
 
-/* Pediment hierarchy: Wordmark on top, downward apex chevron underneath */
 .apex-core {
   position: relative;
   display: flex;
@@ -67,17 +62,6 @@ body.page-home {
 
 .masthead {
   order: 1;
-}
-
-.apex-triangle-link {
-  order: 2;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  outline: none;
-  padding: 0.25rem;
 }
 
 .wordmark-link {
@@ -105,36 +89,6 @@ body.page-home {
   color: var(--amber);
 }
 
-/* Hairline Chevrons: Open vectors, never solid blocks or heavy border hacks */
-.vector-triangle,
-.chevron {
-  position: relative;
-  width: 14px;
-  height: 14px;
-  background: transparent;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s ease;
-}
-
-/* Top Apex Chevron: points DOWN into the vault (v) */
-.apex-triangle-link .vector-triangle,
-.apex-core .vector-triangle,
-.chevron-down,
-.triangle-down-chevron,
-.triangle-up {
-  border: none;
-  border-right: 1.5px solid var(--carbon);
-  border-bottom: 1.5px solid var(--carbon);
-  transform: rotate(45deg);
-}
-
-.apex-triangle-link:hover .vector-triangle,
-.apex-triangle-link:hover .triangle-up,
-.apex-triangle-link:hover .chevron-down {
-  border-color: var(--amber);
-  transform: rotate(45deg) translate(2px, 2px);
-}
-
-/* Drawer fold metadata panel */
 .folded-sheet {
   position: absolute;
   top: calc(100% + 0.75rem);
@@ -177,17 +131,60 @@ body.page-home {
   color: var(--amber);
 }
 
-/* ==========================================================================
-   Amber Corner Vectors: Hairline & Transparency Gradient
-   - Default: Top hairline with directional amber transparency gradient.
-   - Hover: Resolves into a full hollowed-out hairline triangle.
-   ========================================================================== */
+.apex-divider-anchor {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  width: 104px;
+  height: 52px;
+  text-decoration: none;
+  z-index: 65;
+  outline: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apex-divider-anchor:hover {
+  transform: translateX(-50%) translateY(3px);
+}
+
+.vault-chevron-svg {
+  display: block;
+  width: 104px;
+  height: 52px;
+  overflow: visible;
+  border: none !important;
+  transform: none !important;
+}
+
+.chevron-carbon-stroke {
+  stroke: var(--carbon);
+  stroke-width: 2.67px;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  transition: stroke 0.2s ease;
+}
+
+.chevron-interior {
+  transition: opacity 0.2s ease;
+}
+
+.apex-divider-anchor:hover .chevron-carbon-stroke,
+.drain-link:hover .chevron-carbon-stroke {
+  stroke: var(--amber);
+}
+
+.apex-divider-anchor:hover .chevron-interior,
+.drain-link:hover .chevron-interior {
+  opacity: 0.75;
+}
 
 .corner-vector {
   position: absolute;
-  top: 0;
+  top: 100%;
   width: 140px;
-  height: 100%;
+  height: 3.5rem;
   text-decoration: none;
   display: flex;
   background-color: transparent;
@@ -195,85 +192,67 @@ body.page-home {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
 
-/* Base corner label typography */
 .corner-label {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.24em;
-  color: var(--amber);
+  color: var(--carbon);
   opacity: 0.85;
   transition: opacity 0.2s ease, color 0.2s ease;
   z-index: 2;
 }
 
-/* --------------------------------------------------------------------------
-   Left Corner (e.g. SCRIPT / OBJECTS)
-   -------------------------------------------------------------------------- */
 .corner-left {
   left: 0;
   border-top: 1.5px solid var(--amber);
   clip-path: polygon(0 0, 100% 0, 0 100%);
-  background: linear-gradient(135deg, rgba(194, 142, 66, 0.22) 0%, transparent 65%);
-  padding: 0.85rem 0 0 1.25rem;
+  background: linear-gradient(135deg, rgba(194, 142, 66, 0.75) 0%, rgba(194, 142, 66, 0.2) 48%, transparent 62%);
+  padding: 0.6rem 0 0 1.25rem;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
-/* Diagonal hairline hypotenuse on hover (hollowed-out triangle) */
 .corner-left::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0;
-  background: linear-gradient(to bottom right, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px));
-  transition: opacity 0.25s ease;
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px)),
+    linear-gradient(135deg, transparent 48%, rgba(194, 142, 66, 0.18) 50%, transparent 80%);
 }
 
 .corner-left:hover {
-  background: linear-gradient(135deg, rgba(194, 142, 66, 0.05) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(194, 142, 66, 0.08) 0%, transparent 60%);
   border-left: 1.5px solid var(--amber);
 }
 
-.corner-left:hover::after {
-  opacity: 1;
-}
-
-/* --------------------------------------------------------------------------
-   Right Corner (e.g. OBJECTS / PIGMENT)
-   -------------------------------------------------------------------------- */
 .corner-right {
   right: 0;
   border-top: 1.5px solid var(--amber);
   clip-path: polygon(0 0, 100% 0, 100% 100%);
-  background: linear-gradient(-135deg, rgba(194, 142, 66, 0.22) 0%, transparent 65%);
-  padding: 0.85rem 1.25rem 0 0;
+  background: linear-gradient(-135deg, rgba(194, 142, 66, 0.75) 0%, rgba(194, 142, 66, 0.2) 48%, transparent 62%);
+  padding: 0.6rem 1.25rem 0 0;
   justify-content: flex-end;
   align-items: flex-start;
 }
 
-/* Diagonal hairline hypotenuse on hover (hollowed-out triangle) */
 .corner-right::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0;
-  background: linear-gradient(to bottom left, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px));
-  transition: opacity 0.25s ease;
+  background:
+    linear-gradient(to bottom left, transparent calc(50% - 1px), var(--amber) 50%, transparent calc(50% + 1px)),
+    linear-gradient(-135deg, transparent 48%, rgba(194, 142, 66, 0.18) 50%, transparent 80%);
 }
 
 .corner-right:hover {
-  background: linear-gradient(-135deg, rgba(194, 142, 66, 0.05) 0%, transparent 60%);
+  background: linear-gradient(-135deg, rgba(194, 142, 66, 0.08) 0%, transparent 60%);
   border-right: 1.5px solid var(--amber);
 }
 
-.corner-right:hover::after {
-  opacity: 1;
-}
-
-/* Universal hover state feedback */
 .corner-vector:hover {
   transform: translateY(1px);
 }
@@ -282,10 +261,6 @@ body.page-home {
   opacity: 1;
   color: var(--amber);
 }
-
-/* ==========================================================================
-   Home Prism Canvas
-   ========================================================================== */
 
 .prism-canvas {
   position: relative;
@@ -380,10 +355,6 @@ body.page-home {
   opacity: 1;
 }
 
-/* ==========================================================================
-   Vault Drain & Bottom Upward Chevron
-   ========================================================================== */
-
 .vault-drain {
   width: 100%;
   padding: 3.5rem 0 4.5rem;
@@ -399,7 +370,7 @@ body.page-home {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   text-decoration: none;
   outline: none;
 }
@@ -413,32 +384,20 @@ body.page-home {
   transition: color 0.15s ease;
 }
 
-/* Bottom Drain Chevron: points UP into the vault (^) */
-.vault-drain .vector-triangle,
-.drain-link .vector-triangle,
-.chevron-up,
-.triangle-up-chevron,
-.triangle-down {
-  border: none;
-  border-left: 1.5px solid var(--carbon);
-  border-top: 1.5px solid var(--carbon);
-  transform: rotate(45deg);
+.drain-divider-anchor {
+  display: block;
+  width: 104px;
+  height: 52px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.drain-link:hover .vector-triangle,
-.drain-link:hover .triangle-down,
-.drain-link:hover .chevron-up {
-  border-color: var(--amber);
-  transform: rotate(45deg) translate(-2px, -2px);
+.drain-link:hover .drain-divider-anchor {
+  transform: translateY(-3px);
 }
 
 .drain-link:hover .drain-label {
   color: var(--amber);
 }
-
-/* ==========================================================================
-   The Ledger & The Specimen (Content View Architectures)
-   ========================================================================== */
 
 .specimen-stage,
 .ledger-stage {
@@ -476,7 +435,6 @@ body.page-home {
   line-height: 1.25;
 }
 
-/* Aerated Ledger Records */
 .ledger-records {
   list-style: none;
   border-top: 1px solid var(--carbon-border);
@@ -530,16 +488,13 @@ body.page-home {
 }
 
 .ledger-empty {
-  padding: 6rem 1.5rem; /* Expands the empty notice so it anchors the stage */
-  text-align: center;
-  color: rgba(24, 25, 27, 0.35);
+  padding: 3rem 1.25rem;
+  color: rgba(24, 25, 27, 0.4);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.28em;
-  border-bottom: 1px solid var(--carbon-border);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
 }
 
-/* Specimen Plate Body */
 .specimen-plate {
   font-family: var(--font-sans);
   font-size: 1.15rem;
@@ -561,10 +516,6 @@ body.page-home {
   border: 1px solid var(--carbon-border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
-
-/* ==========================================================================
-   Responsive Adaptations
-   ========================================================================== */
 
 @media (max-width: 768px) {
   body.page-home {
