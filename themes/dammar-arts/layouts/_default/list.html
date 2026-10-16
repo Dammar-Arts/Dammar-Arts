@@ -7,14 +7,29 @@
     <h1 class="ledger-title">{{ .Title | default (.Section | upper) }}</h1>
   </header>
 
+  {{/* Sélection stricte des spécimens réguliers, rétrocompatible et récursive */}}
+  {{ $specimens := .RegularPages.ByDate.Reverse }}
+
   <ul class="ledger-records" role="list">
-    {{ range .Pages.ByDate.Reverse }}
-      <li class="ledger-entry">
+    {{ range $specimens }}
+      {{ $images := .Resources.ByType "image" }}
+      <li class="ledger-entry {{ if gt (len $images) 0 }}has-plates{{ end }}">
         <a href="{{ .RelPermalink }}" class="ledger-link">
           <time class="entry-date" datetime="{{ .Date.Format "2006-01-02" }}">
-            {{ .Date.Format "2006.01.02" }}
+            {{ if not .Date.IsZero }}{{ .Date.Format "2006.01.02" }}{{ else }}—{{ end }}
           </time>
-          <span class="entry-title">{{ .Title }}</span>
+
+          <span class="entry-title">
+            {{ .LinkTitle | default .Title }}
+
+            {{/* Indicateur pour les artworks (pigment / objects) disposant d'images */}}
+            {{ if and (or (eq $.Section "pigment") (eq $.Section "objects")) (gt (len $images) 0) }}
+              <span class="ledger-plate-count" title="{{ len $images }} planche(s) cataloguée(s)">
+                [PL.{{ len $images }}]
+              </span>
+            {{ end }}
+          </span>
+
           <span class="entry-indicator" aria-hidden="true">→</span>
         </a>
       </li>

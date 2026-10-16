@@ -442,6 +442,142 @@ body.page-home {
   line-height: 1.25;
 }
 
+.specimen-plate {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  line-height: 1.95;
+  color: var(--carbon);
+}
+
+.specimen-plate p {
+  margin-bottom: 1.8rem;
+}
+
+/* ==========================================================================
+   Artworks Display (Pigment / Objects)
+   ========================================================================== */
+
+.specimen-carousel-frame {
+  width: 100%;
+  max-width: 100%;
+  margin: 2rem 0 3.5rem;
+  overflow: hidden;
+}
+
+.specimen-carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 1.5rem;
+}
+
+.specimen-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.carousel-slide img,
+.plate-artwork img {
+  max-width: 100%;
+  max-height: 75vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background-color: var(--white);
+  padding: 1.25rem;
+  border: 1px solid var(--carbon-border);
+  box-shadow: 0 10px 30px rgba(24, 25, 27, 0.04);
+}
+
+.specimen-caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: rgba(24, 25, 27, 0.6);
+  margin-top: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.carousel-hint {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.carousel-mark {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--amber);
+}
+
+/* ==========================================================================
+   Script Display (Textes)
+   ========================================================================== */
+
+.plate-script {
+  position: relative;
+  border-left: 1px solid var(--amber);
+  border-right: 1px solid var(--amber);
+  padding: 2.5rem 3rem;
+  margin: 0 auto;
+}
+
+.specimen-fig {
+  width: 50%;
+  box-sizing: border-box;
+  background-color: var(--white);
+  padding: 0.75rem;
+  border: 1px solid var(--amber);
+  box-shadow: 0 8px 24px rgba(194, 142, 66, 0.08);
+}
+
+.specimen-fig img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.specimen-fig figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgba(24, 25, 27, 0.6);
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.plate-script .specimen-fig:nth-of-type(odd) {
+  float: right;
+  margin: 0.5rem 0 2rem 2.5rem;
+  clear: right;
+}
+
+.plate-script .specimen-fig:nth-of-type(even) {
+  float: left;
+  margin: 0.5rem 2.5rem 2rem 0;
+  clear: left;
+}
+
+.plate-script::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ==========================================================================
+   The Ledger (List View Architecture)
+   ========================================================================== */
+
 .ledger-records {
   list-style: none;
   border-top: 1px solid var(--carbon-border);
@@ -502,27 +638,9 @@ body.page-home {
   letter-spacing: 0.15em;
 }
 
-.specimen-plate {
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
-  line-height: 1.95;
-  color: var(--carbon);
-}
-
-.specimen-plate p {
-  margin-bottom: 1.8rem;
-}
-
-.specimen-plate img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 3rem auto;
-  background-color: var(--white);
-  padding: 1.25rem;
-  border: 1px solid var(--carbon-border);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-}
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
 
 @media (max-width: 768px) {
   body.page-home {
@@ -558,6 +676,18 @@ body.page-home {
     width: calc(100vw - 2.5rem);
     max-width: 310px;
     padding: 1.25rem;
+  }
+
+  .plate-script {
+    padding: 1.5rem 1rem;
+  }
+
+  .plate-script .specimen-fig:nth-of-type(odd),
+  .plate-script .specimen-fig:nth-of-type(even) {
+    float: none;
+    width: 100%;
+    margin: 2rem 0;
+    clear: both;
   }
 
   .ledger-link {
