@@ -530,42 +530,74 @@ body.page-home {
     overflow-y: auto;
   }
 
-  .corner-vector {
-    display: none;
-  }
-
   .vault-pediment {
     height: 5.5rem;
     padding: 0 1rem;
   }
 
+  .apex-divider-anchor,
+  .drain-divider-anchor,
+  .vault-chevron-svg {
+    width: 80px;
+    height: 40px;
+  }
+
+  .specimen-stage,
+  .ledger-stage {
+    padding: 4.5rem 1.25rem 4rem;
+  }
+
+  .specimen-title,
+  .ledger-title {
+    font-size: 1.65rem;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+  }
+
+  .folded-sheet {
+    width: calc(100vw - 2.5rem);
+    max-width: 310px;
+    padding: 1.25rem;
+  }
+
+  .ledger-link {
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 1rem;
+    padding: 1.5rem 0.75rem;
+  }
+
+  .entry-date {
+    grid-column: 1 / -1;
+  }
+
+  .entry-title {
+    padding-right: 0.5rem;
+    word-break: break-word;
+  }
+
   .prism-canvas {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 5.5rem);
+    min-height: calc(100vh - 5.5rem);
   }
 
   .facet {
     position: relative;
     flex: 1;
+    min-height: 25vh;
     clip-path: none !important;
-    padding: 0 !important;
+    padding: 2rem 0 !important;
     justify-content: center !important;
     align-items: center !important;
+    border-bottom: 1px solid var(--carbon-border);
   }
 
-  .specimen-stage,
-  .ledger-stage {
-    padding: 2rem 1.25rem 4rem;
+  .facet-pigment::before,
+  .facet-pigment::after {
+    display: none !important;
   }
 
-  .ledger-link {
-    grid-template-columns: 1fr auto;
-    gap: 0.75rem;
-    padding: 1.75rem 0.75rem;
-  }
-
-  .entry-date {
-    grid-column: 1 / -1;
+  .corner-vector {
+    display: none;
   }
 }
