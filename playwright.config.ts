@@ -7,7 +7,7 @@ export default defineConfig({
   fullyParallel: false,
   reporter: [['list']],
   use: {
-    baseURL: 'http://localhost:1314',
+    baseURL: 'http://127.0.0.1:1314',
   },
   projects: [
     {
@@ -25,9 +25,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'hugo server -D --port 1314 --contentDir tests/fixtures',
-    port: 1314,
+    command: 'hugo server -D --bind 127.0.0.1 --port 1314 --contentDir tests/fixtures',
+    url: 'http://127.0.0.1:1314',
     reuseExistingServer: !process.env.CI,
-    timeout: 15000,
+    timeout: 30000,
   },
 });
