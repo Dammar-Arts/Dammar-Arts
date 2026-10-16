@@ -770,3 +770,32 @@ body.page-home {
     display: none;
   }
 }
+.specimen-plate blockquote {
+  position: relative;
+  margin: 3rem 0;
+  padding: 0.75rem 0 0.75rem 3.5rem;
+  border-left: none;
+  font-style: normal;
+}
+
+.specimen-plate blockquote::before {
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  left: 0.85rem;
+  width: 14px;
+  height: 14px;
+  border-top: 1.5px solid var(--amber);
+  border-right: 1.5px solid var(--amber);
+  transform: rotate(45deg);
+}
+
+.specimen-plate blockquote p {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  color: var(--carbon);
+  opacity: 0.88;
+  margin-bottom: 0.5rem;
+}
