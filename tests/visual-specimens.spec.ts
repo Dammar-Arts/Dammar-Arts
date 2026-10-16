@@ -10,7 +10,7 @@ if (!fs.existsSync(outDir)) {
 test.describe('Hermetic Vault Visual Specifications', () => {
   test('Capture Pigment Gallery Specimen', async ({ page }, testInfo) => {
     const vp = testInfo.project.name;
-    await page.goto('/pigment-bundle/', { waitUntil: 'networkidle' });
+    await page.goto('/pigment/specimen-1/', { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
 
     const track = page.locator('.specimen-carousel-track');
@@ -25,7 +25,7 @@ test.describe('Hermetic Vault Visual Specifications', () => {
 
   test('Capture Script Alternating Columns', async ({ page }, testInfo) => {
     const vp = testInfo.project.name;
-    await page.goto('/script-bundle/', { waitUntil: 'networkidle' });
+    await page.goto('/script/specimen-1/', { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
 
     const plateScript = page.locator('.plate-script, .specimen-plate');
