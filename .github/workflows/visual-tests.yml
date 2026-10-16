@@ -1,0 +1,63 @@
+name: Visual Specimen Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Setup Hugo CLI
+        uses: actions/setup-node@v4 # Alternative native ou setup-hugo officiel
+        # Pour Hugo, l'action standard maintenue est direct via chocolatey/apt/binary ou le setup officiel :
+      - name: Install Hugo (Extended)
+        run: |
+          HUGO_VERSION="0.145.0"
+          curl -sL "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz" | tar -xz hugo
+          sudo mv hugo /usr/local/bin/
+          hugo version
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Cache Playwright Browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright Chromium with system dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Playwright system dependencies if cache hit
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Run Hermetic Visual Tests
+        run: npx playwright test
+
+      - name: Upload Visual Artifacts (PNGs)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: visual-specimen-screenshots
+          path: tests/artifacts/output/
+          retention-days: 7
+          if-no-files-found: warn
