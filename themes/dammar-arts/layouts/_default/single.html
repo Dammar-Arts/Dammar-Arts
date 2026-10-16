@@ -7,7 +7,7 @@
     <h1 class="specimen-title">{{ .Title }}</h1>
   </header>
 
-  {{ if or (eq .Section "pigment") (eq .Section "objects") }}
+  {{ if or (eq .Section "pigment") (eq .Section "object") }}
     {{ $images := .Resources.ByType "image" }}
     {{ if gt (len $images) 0 }}
       <div class="specimen-carousel-frame">
