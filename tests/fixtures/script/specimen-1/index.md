@@ -14,3 +14,7 @@ Early cataloging protocols relied heavily on manual transcription, noting specif
 ![Plate Beta](plate-2.jpg "Planche Beta")
 
 Subsequent analyses confirm that volatile terpenic fractions dissipate within the first sixty lunar cycles of application. What remains is a hard, vitrified lattice adhering firmly to the ground layer.
+
+> An archival environment shielded from erratic thermal flux.
+
+Obviously very efficient.
