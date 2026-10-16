@@ -27,7 +27,7 @@ export default defineConfig({
   webServer: {
     command: 'hugo server -D --bind 127.0.0.1 --port 1314 --contentDir tests/fixtures',
     url: 'http://127.0.0.1:1314',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: !(globalThis as any).process?.env?.CI,
     timeout: 30000,
   },
 });

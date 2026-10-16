@@ -22,9 +22,6 @@ jobs:
           node-version: 22
           cache: 'npm'
 
-      - name: Setup Hugo CLI
-        uses: actions/setup-node@v4 # Alternative native ou setup-hugo officiel
-        # Pour Hugo, l'action standard maintenue est direct via chocolatey/apt/binary ou le setup officiel :
       - name: Install Hugo (Extended)
         run: |
           HUGO_VERSION="0.145.0"
