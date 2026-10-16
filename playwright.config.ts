@@ -26,9 +26,11 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'hugo server -D --bind 127.0.0.1 --port 1314 --contentDir tests/fixtures',
+    command: 'hugo server -D --bind 127.0.0.1 --port 1314 --baseURL http://127.0.0.1:1314/ --contentDir tests/fixtures --disableLiveReload',
     url: 'http://127.0.0.1:1314',
-    reuseExistingServer: !(globalThis as any).process?.env?.CI,
+    reuseExistingServer: false,
     timeout: 30000,
+    stdout: 'pipe',
+    stderr: 'pipe',
   },
 });
