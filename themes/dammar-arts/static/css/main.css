@@ -184,7 +184,7 @@ body.page-home {
   position: absolute;
   top: 100%;
   width: 140px;
-  height: 3.5rem;
+  height: 6.5rem;
   text-decoration: none;
   display: flex;
   background-color: transparent;
@@ -208,7 +208,7 @@ body.page-home {
   border-top: 1.5px solid var(--amber);
   clip-path: polygon(0 0, 100% 0, 0 100%);
   background: linear-gradient(135deg, rgba(194, 142, 66, 0.75) 0%, rgba(194, 142, 66, 0.2) 48%, transparent 62%);
-  padding: 0.6rem 0 0 1.25rem;
+  padding: 0.85rem 0 0 1.25rem;
   justify-content: flex-start;
   align-items: flex-start;
 }
@@ -233,7 +233,7 @@ body.page-home {
   border-top: 1.5px solid var(--amber);
   clip-path: polygon(0 0, 100% 0, 100% 100%);
   background: linear-gradient(-135deg, rgba(194, 142, 66, 0.75) 0%, rgba(194, 142, 66, 0.2) 48%, transparent 62%);
-  padding: 0.6rem 1.25rem 0 0;
+  padding: 0.85rem 1.25rem 0 0;
   justify-content: flex-end;
   align-items: flex-start;
 }
@@ -356,14 +356,18 @@ body.page-home {
 }
 
 .vault-drain {
+  position: sticky;
+  bottom: 0;
   width: 100%;
-  padding: 3.5rem 0 4.5rem;
+  padding: 1.5rem 0 0;
   margin-top: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   background-color: var(--ivory);
   border-top: 1px solid var(--carbon-border);
+  z-index: 40;
+  flex-shrink: 0;
 }
 
 .drain-link {
@@ -385,9 +389,12 @@ body.page-home {
 }
 
 .drain-divider-anchor {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   width: 104px;
   height: 52px;
+  line-height: 0;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
