@@ -1,3 +1,5 @@
+/** Built by Dammar, 2026 **/
+
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400&display=swap");
 
 :root {
@@ -453,10 +455,6 @@ body.page-home {
   margin-bottom: 1.8rem;
 }
 
-/* ==========================================================================
-   Artworks Display (Pigment / Objects)
-   ========================================================================== */
-
 .specimen-carousel-frame {
   width: 100%;
   max-width: 100%;
@@ -521,48 +519,58 @@ body.page-home {
   color: var(--amber);
 }
 
-/* ==========================================================================
-   Script Display (Textes)
-   ========================================================================== */
-
 .plate-script {
   position: relative;
   border-left: 1px solid var(--amber);
   border-right: 1px solid var(--amber);
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 3.5rem;
   margin: 0 auto;
 }
 
-.specimen-fig {
+.plate-script p:has(> .specimen-fig) {
+  margin: 0;
+  padding: 0;
+}
+
+.plate-script .specimen-fig {
   width: 50%;
+  max-width: 50%;
   box-sizing: border-box;
   background-color: var(--white);
-  padding: 0.75rem;
+  padding: 0.85rem;
   border: 1px solid var(--amber);
   box-shadow: 0 8px 24px rgba(194, 142, 66, 0.08);
 }
 
-.specimen-fig img {
+.plate-script .specimen-fig img {
   width: 100%;
   height: auto;
   display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-shadow: none;
 }
 
-.specimen-fig figcaption {
+.plate-script figcaption,
+.plate-script .specimen-caption {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: rgba(24, 25, 27, 0.6);
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
   letter-spacing: 0.05em;
+  line-height: 1.4;
 }
 
-.plate-script .specimen-fig:nth-of-type(odd) {
+.plate-script .specimen-fig:nth-of-type(odd),
+.plate-script .specimen-fig.float-right {
   float: right;
   margin: 0.5rem 0 2rem 2.5rem;
   clear: right;
 }
 
-.plate-script .specimen-fig:nth-of-type(even) {
+.plate-script .specimen-fig:nth-of-type(even),
+.plate-script .specimen-fig.float-left {
   float: left;
   margin: 0.5rem 2.5rem 2rem 0;
   clear: left;
@@ -573,10 +581,6 @@ body.page-home {
   display: table;
   clear: both;
 }
-
-/* ==========================================================================
-   The Ledger (List View Architecture)
-   ========================================================================== */
 
 .ledger-records {
   list-style: none;
@@ -638,10 +642,6 @@ body.page-home {
   letter-spacing: 0.15em;
 }
 
-/* ==========================================================================
-   Responsive Adaptations
-   ========================================================================== */
-
 @media (max-width: 768px) {
   body.page-home {
     height: auto;
@@ -682,10 +682,14 @@ body.page-home {
     padding: 1.5rem 1rem;
   }
 
+  .plate-script .specimen-fig,
   .plate-script .specimen-fig:nth-of-type(odd),
-  .plate-script .specimen-fig:nth-of-type(even) {
+  .plate-script .specimen-fig:nth-of-type(even),
+  .plate-script .specimen-fig.float-right,
+  .plate-script .specimen-fig.float-left {
     float: none;
     width: 100%;
+    max-width: 100%;
     margin: 2rem 0;
     clear: both;
   }

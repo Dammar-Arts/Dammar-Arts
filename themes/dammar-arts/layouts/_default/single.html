@@ -7,8 +7,36 @@
     <h1 class="specimen-title">{{ .Title }}</h1>
   </header>
 
-  <article class="specimen-plate">
-    {{ .Content }}
-  </article>
+  {{ if or (eq .Section "pigment") (eq .Section "objects") }}
+    {{ $images := .Resources.ByType "image" }}
+    {{ if gt (len $images) 0 }}
+      <div class="specimen-carousel-frame">
+        <div class="specimen-carousel-track" tabindex="0" role="region" aria-label="Visual Catalog Carousel">
+          {{ range $images }}
+            <figure class="carousel-slide">
+              <img src="{{ .RelPermalink }}" alt="{{ .Title | default $.Title }}" loading="lazy" />
+              {{ with .Title }}
+                <figcaption class="specimen-caption">{{ . }}</figcaption>
+              {{ end }}
+            </figure>
+          {{ end }}
+        </div>
+        {{ if gt (len $images) 1 }}
+          <div class="carousel-hint">
+            <span class="carousel-mark">← DÉFILER // {{ len $images }} PLANCHES →</span>
+          </div>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    <article class="specimen-plate plate-artwork">
+      {{ .Content }}
+    </article>
+
+  {{ else }}
+    <article class="specimen-plate plate-script">
+      {{ .Content }}
+    </article>
+  {{ end }}
 </main>
 {{ end }}

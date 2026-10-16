@@ -1,4 +1,11 @@
-<figure class="specimen-fig">
+{{ $imgCount := .Page.Store.Get "script_img_index" | default 0 }}
+{{ .Page.Store.Set "script_img_index" (add $imgCount 1) }}
+
+{{ $side := cond (eq (mod $imgCount 2) 0) "float-right" "float-left" }}
+
+<figure class="specimen-fig {{ $side }}">
   <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" loading="lazy" />
-  {{ with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}
+  {{ with .Title }}
+    <figcaption class="specimen-caption">{{ . }}</figcaption>
+  {{ end }}
 </figure>
