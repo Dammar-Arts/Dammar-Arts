@@ -21,5 +21,14 @@
     "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
     "tailwindcss": "^4.3.3"
+  },
+ "overrides": {
+    "@parcel/watcher": {
+      "micromatch": "^4.0.8",
+      "braces": "^3.0.3"
+    },
+    "micromatch": "^4.0.8",
+    "braces": "^3.0.3",
+    "postcss-selector-parser": "^7.1.6"
   }
 }
