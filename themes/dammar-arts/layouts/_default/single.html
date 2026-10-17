@@ -50,6 +50,11 @@
     <article class="specimen-plate plate-artwork">
       {{ .Content }}
     </article>
+  
+  {{ else if eq .Params.format "verse" }}
+    <article class="specimen-plate plate-verse">
+      {{ .Content }}
+    </article>
 
   {{ else }}
     <article class="specimen-plate plate-script">
