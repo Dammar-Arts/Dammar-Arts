@@ -870,3 +870,26 @@ body.page-home {
 .plate-dossier {
   padding: 0 1rem;
 }
+.plate-verse {
+  position: relative;
+  border-left: 1px solid var(--amber);
+  border-right: 1px solid var(--amber);
+  padding: 3.5rem 4rem;
+  margin: 0 auto;
+  white-space: pre; /* Keeps wide lines intact on wide poems */
+  overflow-x: auto;  /* Allows horizontal scroll within the plate boundary */
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  line-height: 2.15;
+  letter-spacing: 0.02em;
+  color: var(--carbon);
+}
+
+@media (max-width: 768px) {
+  .plate-verse {
+    padding: 2rem 1rem;
+    white-space: pre-wrap; /* Wrap safely on mobile viewports */
+  }
+}
