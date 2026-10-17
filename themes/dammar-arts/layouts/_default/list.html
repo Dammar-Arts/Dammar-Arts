@@ -23,7 +23,7 @@
             {{ .LinkTitle | default .Title }}
 
             {{/* Indicateur pour les artworks (pigment / objects) disposant d'images */}}
-            {{ if and (or (eq $.Section "pigment") (eq $.Section "objects")) (gt (len $images) 0) }}
+            {{ if and (or (eq $.Section "pigment") (eq $.Section "object")) (gt (len $images) 0) }}
               <span class="ledger-plate-count" title="{{ len $images }} planche(s) cataloguée(s)">
                 [PL.{{ len $images }}]
               </span>

@@ -4,10 +4,10 @@
 {{ if eq $mode "top" }}
   <nav class="vault-pediment" aria-label="Vault Navigation">
     {{ if not $page.IsHome }}
-      {{ $prevMap := dict "script" "objects" "pigment" "script" "objects" "pigment" }}
-      {{ $nextMap := dict "script" "pigment" "pigment" "objects" "objects" "script" }}
+      {{ $prevMap := dict "script" "object" "pigment" "script" "object" "pigment" }}
+      {{ $nextMap := dict "script" "pigment" "pigment" "object" "object" "script" }}
 
-      {{ $prevFacet := index $prevMap $page.Section | default "objects" }}
+      {{ $prevFacet := index $prevMap $page.Section | default "object" }}
       {{ $nextFacet := index $nextMap $page.Section | default "pigment" }}
 
       <!-- Left Corner: Positioned under the pediment divider line -->

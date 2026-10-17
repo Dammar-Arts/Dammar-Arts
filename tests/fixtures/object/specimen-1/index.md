@@ -1,7 +1,7 @@
 ---
 title: "Specimen Test: Solitary Object"
 date: 2026-10-15T00:00:00Z
-section: "objects"
+section: "object"
 ---
 
 Archival test plate evaluating single artifact presentation and stage geometry.

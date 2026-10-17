@@ -7,7 +7,25 @@
     <h1 class="specimen-title">{{ .Title }}</h1>
   </header>
 
-  {{ if or (eq .Section "pigment") (eq .Section "object") }}
+  {{ if eq .Params.format "dossier" }}
+    {{ $pdf := .Resources.GetMatch "*.pdf" }}
+    {{ if $pdf }}
+      <div class="specimen-aperture">
+        <!-- #toolbar=0&navpanes=0 strips ugly browser chrome -->
+        <object data="{{ $pdf.RelPermalink }}#toolbar=0&navpanes=0&view=FitH" type="application/pdf" title="{{ .Title }}">
+          <p>Unable to display PDF natively. <a href="{{ $pdf.RelPermalink }}">Download folio</a>.</p>
+        </object>
+      </div>
+      <div class="aperture-console">
+        <a href="{{ $pdf.RelPermalink }}" class="aperture-extract-link" download>EXTRACT FOLIO // PDF</a>
+        <span class="aperture-metrics">{{ .Params.pages | default "UNKNOWN" }} PAGES</span>
+      </div>
+    {{ end }}
+    <article class="specimen-plate plate-dossier">
+      {{ .Content }}
+    </article>
+
+  {{ else if or (eq .Section "pigment") (eq .Section "object") }}
     {{ $images := .Resources.ByType "image" }}
     {{ if gt (len $images) 0 }}
       <div class="specimen-carousel-frame">
@@ -21,6 +39,7 @@
             </figure>
           {{ end }}
         </div>
+
         {{ if gt (len $images) 1 }}
           <div class="carousel-hint">
             <span class="carousel-mark">← DÉFILER // {{ len $images }} PLANCHES →</span>
@@ -28,7 +47,6 @@
         {{ end }}
       </div>
     {{ end }}
-
     <article class="specimen-plate plate-artwork">
       {{ .Content }}
     </article>
