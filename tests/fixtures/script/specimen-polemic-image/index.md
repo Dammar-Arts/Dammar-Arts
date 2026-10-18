@@ -6,4 +6,4 @@ format = "polemic"
 
 The distinction between deceptive fabrication and legitimate artistic or political expression is central.
 
-![Dissent Plate](plate-1.jpg "Caricature Specimen")
+![Dissent Plate](Gemini-generated-joke-contains-AI-tagging.jpg "Caricature Specimen")
