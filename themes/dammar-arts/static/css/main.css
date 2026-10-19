@@ -1,18 +1,61 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,450;0,6..72,500;1,6..72,400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,450;0,6..72,500;1,6..72,400&display=swap");
 
 :root {
+  /* Palette — Mineral & Archival Surfaces */
   --ivory: #F5F4F0;
+  --ivory-warm: #FAF9F6;
+  --ivory-hover: #ECEAE4;
+  --ivory-polemic: rgba(245, 244, 240, 0.88);
   --white: #FFFFFF;
+
+  /* Palette — Carbon & Ink */
   --carbon: #18191B;
   --carbon-soft: #232529;
   --carbon-border: rgba(24, 25, 27, 0.06);
+  --carbon-frame: rgba(24, 25, 27, 0.8);
+  --carbon-muted: rgba(24, 25, 27, 0.6);
+  --carbon-faint: rgba(24, 25, 27, 0.45);
+  --carbon-ghost: rgba(24, 25, 27, 0.4);
+
+  /* Palette — Amber & Cinnabar Accents */
   --amber: #C28E42;
   --amber-soft: rgba(194, 142, 66, 0.04);
+  --polemic-bg: #1F1516;
+  --cinnabar: #D32F2F;
+
+  /* Typography — Families */
   --font-mono: "IBM Plex Mono", monospace;
   --font-sans: "IBM Plex Sans", sans-serif;
   --font-verse: "Newsreader", serif;
+  --font-polemical: "Crimson Pro", serif;
+
+  /* Typography — Scale */
+  --text-xs: 0.75rem;
+  --text-body: 1.15rem;
+  --text-display: 2.3rem;
+
+  /* Typography — Tracking */
+  --tracking-tight: 0.02em;
+  --tracking-wide: 0.22em;
+  --tracking-wider: 0.24em;
+
+  /* Layout & Geometry */
+  --stage-max-width: 900px;
+  --pediment-height: 6.5rem;
+  --chevron-width: 104px;
+  --chevron-height: 52px;
+  --plate-pad-lg: 3.5rem 4rem;
+
+  /* Borders & Hairlines */
+  --border-subtle: 1px solid var(--carbon-border);
+  --hairline-amber: 1px solid var(--amber);
+  --stroke-amber: 1.5px solid var(--amber);
+  --stroke-cinnabar: 1.5px solid var(--cinnabar);
+
+  /* Motion Curves */
+  --ease-std: 0.2s ease;
+  --ease-fast: 0.15s ease;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -36,12 +79,16 @@ body.page-home {
   overflow: hidden;
 }
 
+/* ==========================================================================
+   1. Vault Pediment & Top Navigation
+   ========================================================================== */
+
 .vault-pediment {
   position: relative;
   width: 100%;
-  height: 6.5rem;
+  height: var(--pediment-height);
   background-color: var(--ivory);
-  border-bottom: 1px solid var(--carbon-border);
+  border-bottom: var(--border-subtle);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,7 +126,7 @@ body.page-home {
   font-size: 1.25rem;
   letter-spacing: 0.35em;
   color: var(--carbon);
-  transition: color 0.15s ease;
+  transition: color var(--ease-fast);
 }
 
 .drawer-trigger {
@@ -102,11 +149,11 @@ body.page-home {
   color: var(--ivory);
   padding: 1.75rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   line-height: 1.7;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity var(--ease-std), transform var(--ease-std);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
   z-index: 100;
 }
@@ -134,18 +181,22 @@ body.page-home {
   color: var(--amber);
 }
 
+/* ==========================================================================
+   2. Vector Dividers & Lateral Corner Registration Marks
+   ========================================================================== */
+
 .apex-divider-anchor {
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
   display: block;
-  width: 104px;
-  height: 52px;
+  width: var(--chevron-width);
+  height: var(--chevron-height);
   text-decoration: none;
   z-index: 65;
   outline: none;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.2s var(--ease-out-expo);
 }
 
 .apex-divider-anchor:hover {
@@ -154,8 +205,8 @@ body.page-home {
 
 .vault-chevron-svg {
   display: block;
-  width: 104px;
-  height: 52px;
+  width: var(--chevron-width);
+  height: var(--chevron-height);
   overflow: visible;
   border: none !important;
   transform: none !important;
@@ -166,11 +217,11 @@ body.page-home {
   stroke-width: 2.67px;
   stroke-linecap: square;
   stroke-linejoin: miter;
-  transition: stroke 0.2s ease;
+  transition: stroke var(--ease-std);
 }
 
 .chevron-interior {
-  transition: opacity 0.2s ease;
+  transition: opacity var(--ease-std);
 }
 
 .apex-divider-anchor:hover .chevron-carbon-stroke,
@@ -187,28 +238,28 @@ body.page-home {
   position: absolute;
   top: 100%;
   width: 140px;
-  height: 6.5rem;
+  height: var(--pediment-height);
   text-decoration: none;
   display: flex;
   background-color: transparent;
   z-index: 55;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  transition: transform 0.25s var(--ease-out-expo), opacity var(--ease-std);
 }
 
 .corner-label {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.24em;
+  letter-spacing: var(--tracking-wider);
   color: var(--carbon);
   opacity: 0.85;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition: opacity var(--ease-std), color var(--ease-std);
   z-index: 2;
 }
 
 .corner-left {
   left: 0;
-  border-top: 1.5px solid var(--amber);
+  border-top: var(--stroke-amber);
   clip-path: polygon(0 0, 100% 0, 0 100%);
   background: linear-gradient(135deg, rgba(194, 142, 66, 0.75) 0%, rgba(194, 142, 66, 0.2) 48%, transparent 62%);
   padding: 0.85rem 0 0 1.25rem;
@@ -228,12 +279,12 @@ body.page-home {
 
 .corner-left:hover {
   background: linear-gradient(135deg, rgba(194, 142, 66, 0.08) 0%, transparent 60%);
-  border-left: 1.5px solid var(--amber);
+  border-left: var(--stroke-amber);
 }
 
 .corner-right {
   right: 0;
-  border-top: 1.5px solid var(--amber);
+  border-top: var(--stroke-amber);
   clip-path: polygon(0 0, 100% 0, 100% 100%);
   background: linear-gradient(-135deg, rgba(194, 142, 66, 0.75) 0%, rgba(194, 142, 66, 0.2) 48%, transparent 62%);
   padding: 0.85rem 1.25rem 0 0;
@@ -253,7 +304,7 @@ body.page-home {
 
 .corner-right:hover {
   background: linear-gradient(-135deg, rgba(194, 142, 66, 0.08) 0%, transparent 60%);
-  border-right: 1.5px solid var(--amber);
+  border-right: var(--stroke-amber);
 }
 
 .corner-vector:hover {
@@ -264,6 +315,10 @@ body.page-home {
   opacity: 1;
   color: var(--amber);
 }
+
+/* ==========================================================================
+   3. Home Prism Canvas & Facets
+   ========================================================================== */
 
 .prism-canvas {
   position: relative;
@@ -277,14 +332,14 @@ body.page-home {
   display: flex;
   text-decoration: none;
   color: var(--carbon);
-  transition: background-color 0.2s ease;
+  transition: background-color var(--ease-std);
 }
 
 .facet-marker {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   letter-spacing: 0.18em;
-  transition: color 0.15s ease;
+  transition: color var(--ease-fast);
 }
 
 .facet:hover .facet-marker {
@@ -299,17 +354,17 @@ body.page-home {
   padding-left: 12vw;
 }
 
-.facet-script:hover,
-.facet-object:hover {
-  background-color: #ECEAE4;
-}
-
 .facet-object {
   background-color: var(--ivory);
   clip-path: polygon(50% 0, 100% 0, 100% 100%);
   justify-content: flex-end;
   align-items: center;
   padding-right: 12vw;
+}
+
+.facet-script:hover,
+.facet-object:hover {
+  background-color: var(--ivory-hover);
 }
 
 .facet-pigment {
@@ -322,7 +377,7 @@ body.page-home {
 }
 
 .facet-pigment:hover {
-  background-color: #FAF9F6;
+  background-color: var(--ivory-warm);
 }
 
 .facet-pigment::after {
@@ -358,9 +413,13 @@ body.page-home {
   opacity: 1;
 }
 
+/* ==========================================================================
+   4. Stage Architecture: Ledger & Specimen Shared Framing
+   ========================================================================== */
+
 .specimen-stage,
 .ledger-stage {
-  max-width: 900px;
+  max-width: var(--stage-max-width);
   width: 100%;
   margin: 0 auto;
   padding: 3rem 2rem 5rem;
@@ -370,15 +429,15 @@ body.page-home {
 .ledger-header,
 .specimen-meta {
   margin-bottom: 3.5rem;
-  border-bottom: 1px solid var(--carbon-border);
+  border-bottom: var(--border-subtle);
   padding-bottom: 2rem;
 }
 
 .specimen-accession,
 .ledger-facet-tag {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.22em;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
   color: var(--amber);
   display: block;
   margin-bottom: 0.75rem;
@@ -387,16 +446,84 @@ body.page-home {
 .specimen-title,
 .ledger-title {
   font-family: var(--font-mono);
-  font-size: 2.3rem;
+  font-size: var(--text-display);
   font-weight: 400;
   letter-spacing: 0.05em;
   color: var(--carbon);
   line-height: 1.25;
 }
 
+/* ==========================================================================
+   5. Ledger Records
+   ========================================================================== */
+
+.ledger-records {
+  list-style: none;
+  border-top: var(--border-subtle);
+  margin-top: 1.5rem;
+}
+
+.ledger-entry {
+  border-bottom: var(--border-subtle);
+  transition: background-color 0.25s ease;
+}
+
+.ledger-link {
+  display: grid;
+  grid-template-columns: 9.5rem 1fr auto;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 2.25rem 1.25rem;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--carbon);
+  transition: background-color var(--ease-std), transform var(--ease-std);
+}
+
+.ledger-link:hover {
+  background-color: var(--amber-soft);
+}
+
+.entry-date {
+  color: var(--carbon-faint);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+}
+
+.entry-title {
+  letter-spacing: var(--tracking-tight);
+}
+
+.entry-indicator {
+  color: var(--carbon);
+  opacity: 0.25;
+  text-align: right;
+  font-size: 1.1rem;
+  transition: transform var(--ease-std), opacity var(--ease-std), color var(--ease-std);
+}
+
+.ledger-link:hover .entry-indicator {
+  color: var(--amber);
+  opacity: 1;
+  transform: translateX(6px);
+}
+
+.ledger-empty {
+  padding: 3rem 1.25rem;
+  color: var(--carbon-ghost);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+}
+
+/* ==========================================================================
+   6. Specimen Plates & Specialized Variants
+   ========================================================================== */
+
 .specimen-plate {
   font-family: var(--font-sans);
-  font-size: 1.15rem;
+  font-size: var(--text-body);
   line-height: 1.95;
   color: var(--carbon);
 }
@@ -404,6 +531,38 @@ body.page-home {
 .specimen-plate p {
   margin-bottom: 1.8rem;
 }
+
+.specimen-plate blockquote {
+  position: relative;
+  margin: 3rem 0;
+  padding: 0.75rem 0 0.75rem 3.5rem;
+  border-left: none;
+  font-style: normal;
+}
+
+.specimen-plate blockquote::before {
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  left: 0.85rem;
+  width: 14px;
+  height: 14px;
+  border-top: var(--stroke-amber);
+  border-right: var(--stroke-amber);
+  transform: rotate(45deg);
+}
+
+.specimen-plate blockquote p {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  color: var(--carbon);
+  opacity: 0.88;
+  margin-bottom: 0.5rem;
+}
+
+/* --- Artwork & Object Carousel --- */
 
 .specimen-carousel-frame {
   width: 100%;
@@ -445,14 +604,14 @@ body.page-home {
   object-fit: contain;
   background-color: var(--white);
   padding: 1.25rem;
-  border: 1px solid var(--carbon-border);
+  border: var(--border-subtle);
   box-shadow: 0 10px 30px rgba(24, 25, 27, 0.04);
 }
 
 .specimen-caption {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: rgba(24, 25, 27, 0.6);
+  font-size: var(--text-xs);
+  color: var(--carbon-muted);
   margin-top: 0.75rem;
   letter-spacing: 0.08em;
 }
@@ -465,14 +624,16 @@ body.page-home {
 .carousel-mark {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  letter-spacing: 0.22em;
+  letter-spacing: var(--tracking-wide);
   color: var(--amber);
 }
 
+/* --- Script Plate & Alternating Figures --- */
+
 .plate-script {
   position: relative;
-  border-left: 1px solid var(--amber);
-  border-right: 1px solid var(--amber);
+  border-left: var(--hairline-amber);
+  border-right: var(--hairline-amber);
   padding: 2.5rem 3.5rem;
   margin: 0 auto;
 }
@@ -488,7 +649,7 @@ body.page-home {
   box-sizing: border-box;
   background-color: var(--white);
   padding: 0.85rem;
-  border: 1px solid var(--amber);
+  border: var(--hairline-amber);
   box-shadow: 0 8px 24px rgba(194, 142, 66, 0.08);
 }
 
@@ -506,7 +667,7 @@ body.page-home {
 .plate-script .specimen-caption {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: rgba(24, 25, 27, 0.6);
+  color: var(--carbon-muted);
   margin-top: 0.6rem;
   letter-spacing: 0.05em;
   line-height: 1.4;
@@ -532,65 +693,138 @@ body.page-home {
   clear: both;
 }
 
-.ledger-records {
-  list-style: none;
-  border-top: 1px solid var(--carbon-border);
-  margin-top: 1.5rem;
-}
+/* --- Verse Plate --- */
 
-.ledger-entry {
-  border-bottom: 1px solid var(--carbon-border);
-  transition: background-color 0.25s ease;
-}
-
-.ledger-link {
-  display: grid;
-  grid-template-columns: 9.5rem 1fr auto;
-  align-items: baseline;
-  gap: 2rem;
-  padding: 2.25rem 1.25rem;
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
+.plate-verse {
+  position: relative;
+  border-left: var(--hairline-amber);
+  border-right: var(--hairline-amber);
+  padding: var(--plate-pad-lg);
+  margin: 0 auto;
+  white-space: pre;
+  overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 2.15;
+  letter-spacing: var(--tracking-tight);
   color: var(--carbon);
-  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.ledger-link:hover {
-  background-color: var(--amber-soft);
+/* --- Polemic Plate --- */
+
+.plate-polemic {
+  position: relative;
+  background-color: var(--polemic-bg);
+  border-left: 0px !important;
+  border-right: 0px !important;
+  padding: var(--plate-pad-lg);
+  margin: 0 auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-polemical);
+  font-size: var(--text-body);
+  line-height: 2;
+  color: var(--ivory-polemic);
 }
 
-.entry-date {
-  color: rgba(24, 25, 27, 0.45);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
+.plate-polemic :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-sans);
+  color: var(--cinnabar);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
-.entry-title {
-  letter-spacing: 0.02em;
+.plate-polemic img,
+.plate-polemic figure {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  border: var(--stroke-cinnabar);
+  border-color: var(--cinnabar) !important;
 }
 
-.entry-indicator {
-  color: var(--carbon);
-  opacity: 0.25;
-  text-align: right;
-  font-size: 1.1rem;
-  transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+/* --- Dossier & PDF Aperture --- */
+
+.plate-dossier {
+  padding: 0 1rem;
 }
 
-.ledger-link:hover .entry-indicator {
-  color: var(--amber);
-  opacity: 1;
-  transform: translateX(6px);
+.specimen-aperture {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 400px;
+  background-color: var(--carbon);
+  border: 1px solid var(--carbon-frame);
+  margin-bottom: 1.5rem;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4);
 }
 
-.ledger-empty {
-  padding: 3rem 1.25rem;
-  color: rgba(24, 25, 27, 0.4);
+.specimen-aperture::before,
+.specimen-aperture::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: var(--stroke-amber);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.specimen-aperture::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.specimen-aperture::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+.specimen-aperture object {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: none;
+  opacity: 0.98;
+}
+
+.aperture-console {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--border-subtle);
+  padding: 0 0.5rem 2rem 0.5rem;
+  margin-bottom: 3rem;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   letter-spacing: 0.15em;
 }
+
+.aperture-extract-link {
+  color: var(--carbon);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--ease-std);
+}
+
+.aperture-extract-link:hover {
+  color: var(--amber);
+}
+
+.aperture-metrics {
+  color: var(--carbon-faint);
+}
+
+/* ==========================================================================
+   7. Vault Drain & Scroll-Driven Arrival
+   ========================================================================== */
 
 @keyframes dock-arrival {
   0% {
@@ -643,7 +877,7 @@ body.page-home {
   animation: link-arrival linear both;
   animation-timeline: scroll(root block);
   animation-range: calc(100% - 120px) 100%;
-  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.2s var(--ease-out-expo), transform 0.2s var(--ease-out-expo);
 }
 
 .drain-link:hover,
@@ -653,21 +887,21 @@ body.page-home {
 
 .drain-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   font-weight: 600;
-  letter-spacing: 0.24em;
+  letter-spacing: var(--tracking-wider);
   color: var(--carbon);
-  transition: color 0.15s ease;
+  transition: color var(--ease-fast);
 }
 
 .drain-divider-anchor {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  width: 104px;
-  height: 52px;
+  width: var(--chevron-width);
+  height: var(--chevron-height);
   line-height: 0;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.2s var(--ease-out-expo);
 }
 
 .drain-link:hover .drain-divider-anchor,
@@ -680,22 +914,24 @@ body.page-home {
   color: var(--amber);
 }
 
+/* ==========================================================================
+   8. Responsive Breakpoints (<= 768px)
+   ========================================================================== */
+
 @media (max-width: 768px) {
+  :root {
+    --pediment-height: 5.5rem;
+    --chevron-width: 80px;
+    --chevron-height: 40px;
+  }
+
   body.page-home {
     height: auto;
     overflow-y: auto;
   }
 
   .vault-pediment {
-    height: 5.5rem;
     padding: 0 1rem;
-  }
-
-  .apex-divider-anchor,
-  .drain-divider-anchor,
-  .vault-chevron-svg {
-    width: 80px;
-    height: 40px;
   }
 
   .specimen-stage,
@@ -720,11 +956,23 @@ body.page-home {
     padding: 1.5rem 1rem;
   }
 
+  .plate-verse {
+    padding: 2rem 1rem;
+    white-space: pre-wrap;
+  }
+
+  .plate-polemic {
+    padding: 2rem 1rem;
+  }
+
   .plate-script .specimen-fig,
   .plate-script .specimen-fig:nth-of-type(odd),
   .plate-script .specimen-fig:nth-of-type(even),
   .plate-script .specimen-fig.float-right,
-  .plate-script .specimen-fig.float-left {
+  .plate-script .specimen-fig.float-left,
+  .plate-polemic .specimen-fig,
+  .plate-polemic .specimen-fig.float-right,
+  .plate-polemic .specimen-fig.float-left {
     float: none;
     width: 100%;
     max-width: 100%;
@@ -750,7 +998,7 @@ body.page-home {
   .prism-canvas {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 5.5rem);
+    min-height: calc(100vh - var(--pediment-height));
   }
 
   .facet {
@@ -761,7 +1009,7 @@ body.page-home {
     padding: 2rem 0 !important;
     justify-content: center !important;
     align-items: center !important;
-    border-bottom: 1px solid var(--carbon-border);
+    border-bottom: var(--border-subtle);
   }
 
   .facet-pigment::before,
@@ -771,195 +1019,5 @@ body.page-home {
 
   .corner-vector {
     display: none;
-  }
-}
-.specimen-plate blockquote {
-  position: relative;
-  margin: 3rem 0;
-  padding: 0.75rem 0 0.75rem 3.5rem;
-  border-left: none;
-  font-style: normal;
-}
-
-.specimen-plate blockquote::before {
-  content: "";
-  position: absolute;
-  top: 1.15rem;
-  left: 0.85rem;
-  width: 14px;
-  height: 14px;
-  border-top: 1.5px solid var(--amber);
-  border-right: 1.5px solid var(--amber);
-  transform: rotate(45deg);
-}
-
-.specimen-plate blockquote p {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  line-height: 1.85;
-  letter-spacing: 0.04em;
-  color: var(--carbon);
-  opacity: 0.88;
-  margin-bottom: 0.5rem;
-}
-
-.specimen-aperture {
-  position: relative;
-  width: 100%;
-  height: 80vh;
-  min-height: 400px;
-  background-color: var(--carbon); 
-  border: 1px solid rgba(24, 25, 27, 0.8);
-  margin-bottom: 1.5rem;
-  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4);
-}
-
-.specimen-aperture::before,
-.specimen-aperture::after {
-  content: "";
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  border: 1.5px solid var(--amber);
-  pointer-events: none;
-  z-index: 10;
-}
-
-.specimen-aperture::before {
-  top: -1px; left: -1px;
-  border-right: none; border-bottom: none;
-}
-
-.specimen-aperture::after {
-  bottom: -1px; right: -1px;
-  border-left: none; border-top: none;
-}
-
-.specimen-aperture object {
-  width: 100%;
-  height: 100%;
-  display: block;
-  border: none;
-  opacity: 0.98;
-}
-
-.aperture-console {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--carbon-border);
-  padding: 0 0.5rem 2rem 0.5rem;
-  margin-bottom: 3rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-}
-
-.aperture-extract-link {
-  color: var(--carbon);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.aperture-extract-link:hover {
-  color: var(--amber);
-}
-
-.aperture-metrics {
-  color: rgba(24, 25, 27, 0.45);
-}
-
-.plate-dossier {
-  padding: 0 1rem;
-}
-.plate-verse {
-  position: relative;
-  border-left: 1px solid var(--amber);
-  border-right: 1px solid var(--amber);
-  padding: 3.5rem 4rem;
-  margin: 0 auto;
-  white-space: pre;
-  overflow-x: auto;
-  max-width: 100%;
-  box-sizing: border-box;
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
-  line-height: 2.15;
-  letter-spacing: 0.02em;
-  color: var(--carbon);
-}
-
-@media (max-width: 768px) {
-  .plate-verse {
-    padding: 2rem 1rem;
-    white-space: pre-wrap;
-  }
-}
-
-.plate-polemic {
-  background-color: #1F1516;
-  border-left: 0px !important;
-  border-right: 0px !important;
-  padding: 3.5rem 4rem;
-  font-family: "Crimson Pro", serif;
-  font-size: 1.15rem;
-  line-height: 2;
-  color: rgba(245, 244, 240, 0.88);
-}
-
-.plate-polemic :is(h1, h2, h3, h4, h5, h6) {
-  font-family: "IBM Plex Sans", sans-serif;
-  color: #D32F2F;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-.plate-polemic img,
-.plate-polemic figure {
-  border-color: #D32F2F !important;
-}
-.plate-polemic {
-  position: relative;
-  background-color: #1F1516;
-  border-left: 0px !important;
-  border-right: 0px !important;
-  padding: 3.5rem 4rem;
-  margin: 0 auto;
-  max-width: 100%;
-  box-sizing: border-box;
-  font-family: "Crimson Pro", serif;
-  font-size: 1.15rem;
-  line-height: 2;
-  color: rgba(245, 244, 240, 0.88);
-}
-
-.plate-polemic :is(h1, h2, h3, h4, h5, h6) {
-  font-family: "IBM Plex Sans", sans-serif;
-  color: #D32F2F;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-.plate-polemic img,
-.plate-polemic figure {
-  max-width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  border: 1.5px solid #D32F2F;
-}
-
-@media (max-width: 768px) {
-  .plate-polemic {
-    padding: 2rem 1rem;
-  }
-  .plate-polemic .specimen-fig,
-  .plate-polemic .specimen-fig.float-right,
-  .plate-polemic .specimen-fig.float-left {
-    float: none;
-    width: 100%;
-    max-width: 100%;
-    margin: 2rem 0;
-    clear: both;
   }
 }
