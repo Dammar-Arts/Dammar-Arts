@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,450;0,6..72,500;1,6..72,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;600&display=swap");
 
 :root {
   --ivory: #F5F4F0;
@@ -878,8 +879,8 @@ body.page-home {
   border-right: 1px solid var(--amber);
   padding: 3.5rem 4rem;
   margin: 0 auto;
-  white-space: pre; /* Keeps wide lines intact on wide poems */
-  overflow-x: auto;  /* Allows horizontal scroll within the plate boundary */
+  white-space: pre;
+  overflow-x: auto;
   max-width: 100%;
   box-sizing: border-box;
   font-family: var(--font-sans);
@@ -892,6 +893,73 @@ body.page-home {
 @media (max-width: 768px) {
   .plate-verse {
     padding: 2rem 1rem;
-    white-space: pre-wrap; /* Wrap safely on mobile viewports */
+    white-space: pre-wrap;
+  }
+}
+
+.plate-polemic {
+  background-color: #1F1516;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  padding: 3.5rem 4rem;
+  font-family: "Crimson Pro", serif;
+  font-size: 1.15rem;
+  line-height: 2;
+  color: rgba(245, 244, 240, 0.88);
+}
+
+.plate-polemic :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #D32F2F;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.plate-polemic img,
+.plate-polemic figure {
+  border-color: #D32F2F !important;
+}
+.plate-polemic {
+  position: relative;
+  background-color: #1F1516;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  padding: 3.5rem 4rem;
+  margin: 0 auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: "Crimson Pro", serif;
+  font-size: 1.15rem;
+  line-height: 2;
+  color: rgba(245, 244, 240, 0.88);
+}
+
+.plate-polemic :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #D32F2F;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.plate-polemic img,
+.plate-polemic figure {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  border: 1.5px solid #D32F2F;
+}
+
+@media (max-width: 768px) {
+  .plate-polemic {
+    padding: 2rem 1rem;
+  }
+  .plate-polemic .specimen-fig,
+  .plate-polemic .specimen-fig.float-right,
+  .plate-polemic .specimen-fig.float-left {
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 2rem 0;
+    clear: both;
   }
 }
