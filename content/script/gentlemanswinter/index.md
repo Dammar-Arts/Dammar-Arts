@@ -6,7 +6,9 @@ format = "verse"
 
 # Gentleman's Winter
 
-> This song was written for a game called 'The Beaumont Legacy'. It describes the thoughts of the main character, witness to obscene wealth alongside starving workers.
+> This song was written for a game called 'The Beaumont Legacy'. 
+> It describes the thoughts of the main character.
+> He's witness to obscene wealth alongside starving workers.
 
 The velvet is drawn, the crystal catches light,  
 The embers gleam against the winter's bite.  
